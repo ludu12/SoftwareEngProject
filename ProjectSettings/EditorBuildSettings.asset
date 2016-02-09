@@ -6,26 +6,32 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SampleAssetBundle/SampleScenes/Scenes/2dCharacter.unity
+    path: Assets/Scenes/StartUp.unity
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/AircraftJet2Axis.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/AircraftJetAI.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/AircraftPropeller4Axis.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/AircraftPropellerAI.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/Car.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/CarAIWaypointBased.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/CharacterFirstPerson.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/CharacterThirdPerson.unity
-  - enabled: 1
-    path: Assets/SampleAssetBundle/SampleScenes/Scenes/CharacterThirdPersonAI.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/Particles.unity
-  - enabled: 1
+  - enabled: 0
+    path: Assets/SampleAssetBundle/SampleScenes/Scenes/CharacterThirdPersonAI.unity
+  - enabled: 0
     path: Assets/SampleAssetBundle/SampleScenes/Scenes/RollerBall.unity
+  - enabled: 0
+    path: Assets/SampleAssetBundle/SampleScenes/Scenes/2dCharacter.unity
