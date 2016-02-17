@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SplashScreenManager : MonoBehaviour {
 
@@ -11,7 +12,7 @@ public class SplashScreenManager : MonoBehaviour {
     IEnumerator DisplayMainMenu()
     {
         yield return new WaitForSeconds(3);
-        Application.LoadLevel("MainMenu");
+        SceneManager.LoadScene("MainMenu");
     }
 
 }
