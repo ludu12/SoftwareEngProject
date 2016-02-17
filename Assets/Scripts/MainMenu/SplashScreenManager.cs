@@ -9,9 +9,8 @@ public class SplashScreenManager : MonoBehaviour {
 	}
 
     IEnumerator DisplayMainMenu()
-    {
-        yield return new WaitForSeconds(3);
-        Application.LoadLevel("MainMenu");
-    }
-
+	{
+		yield return new WaitForSeconds (3);
+		Application.LoadLevel ("MainMenu");
+	}
 }

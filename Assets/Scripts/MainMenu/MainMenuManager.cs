@@ -18,4 +18,8 @@ public class MainMenuManager : MonoBehaviour {
         Application.LoadLevel("Game");
     }
 
+	public void OnHowToPlayButtonClick()
+	{
+		Application.LoadLevel ("Controls");
+	}
 }
