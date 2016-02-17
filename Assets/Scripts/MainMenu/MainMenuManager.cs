@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour {
 
@@ -15,11 +16,16 @@ public class MainMenuManager : MonoBehaviour {
 
     public void OnStartButtonClick()
     {
-        Application.LoadLevel("Game");
+        SceneManager.LoadScene("Game");
     }
 
 	public void OnHowToPlayButtonClick()
 	{
-		Application.LoadLevel ("Controls");
+		SceneManager.LoadScene("Controls");
+	}
+
+	public void OnControlsBackButtonClick()
+	{
+		SceneManager.LoadScene("MainMenu");
 	}
 }
