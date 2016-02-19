@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -27,5 +27,10 @@ public class MainMenuManager : MonoBehaviour {
 	public void OnControlsBackButtonClick()
 	{
 		SceneManager.LoadScene("MainMenu");
+	}
+
+	public void OnExitClick()
+	{
+		Application.Quit();
 	}
 }
