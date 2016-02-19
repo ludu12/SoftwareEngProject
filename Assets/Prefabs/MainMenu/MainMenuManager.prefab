@@ -8,8 +8,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 433288}
-  - 114: {fileID: 11489994}
-  - 114: {fileID: 11426476}
+  - 114: {fileID: 11445986}
+  - 114: {fileID: 11471548}
   m_Layer: 0
   m_Name: MainMenuManager
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11426476
+--- !u!114 &11445986
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -37,10 +37,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 191642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46879fbec76172349a304795118b3538, type: 3}
+  m_Script: {fileID: 11500000, guid: 8957eee5e2289aa498a7173a7af6d129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11489994
+--- !u!114 &11471548
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 191642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56066b9afb3088645b9b64327a7699ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 27e2ee7a0953a544ebf7b849eb5bd0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
