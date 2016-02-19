@@ -33,7 +33,7 @@ public class CarController : MonoBehaviour
 
         isDriving = false;
     }
-    IEnumerator OnForward()
+    public IEnumerator OnForward()
     {
         isDriving = true;
 
@@ -45,7 +45,7 @@ public class CarController : MonoBehaviour
         
         yield return null;
     }
-    IEnumerator OnRight()
+    public IEnumerator OnRight()
     {
         Vector3 turnVector = new Vector3(0, 1f, 0) * rotationSpeed * Time.deltaTime;
 
@@ -54,7 +54,7 @@ public class CarController : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator OnLeft()
+    public IEnumerator OnLeft()
     {
         Vector3 turnVector = new Vector3(0, -1f, 0) * rotationSpeed * Time.deltaTime;
 
@@ -63,7 +63,7 @@ public class CarController : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator OnDown()
+    public IEnumerator OnDown()
     {
         isDriving = true;
 
@@ -79,7 +79,7 @@ public class CarController : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator OnSlowDown()
+    public IEnumerator OnSlowDown()
     {
         if (speed < 0)
         {
