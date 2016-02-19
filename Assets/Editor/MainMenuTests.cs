@@ -8,14 +8,41 @@ using UnityEngine.SceneManagement;
 public class MainMenuTests
 {
     [Test]
-    public void SimpleAddition()
+    public void OnStartButtonClick()
     {
-        //Arrange
-        MainMenuManager mainMenu = new MainMenuManager();
-        var sceneManager = NSubstitute.Substitute.For<SceneManager>();
+        // Arrange
+        var sceneManagerStub = GetSceneManager();
+        var mainMenuManger = GetControllerMock(sceneManagerStub);
 
-        //Act
-        mainMenu.OnStartButtonClick();
+
+        // Act
+        //mainMenu.OnStartButtonClick();
+
+        // Assert
+        //Assert.That("Game" == sceneManagerStub.scene);
     }
 
+    [Test]
+    public void OnHowToPlayButtonClick()
+    {
+
+    }
+
+    [Test]
+    public void OnControlsBackButtonClick()
+    {
+
+    }
+
+    private ISceneManager GetSceneManager()
+    {
+        return NSubstitute.Substitute.For<ISceneManager>();
+    }
+
+    private MainMenuController GetControllerMock(ISceneManager sceneManager)
+    {
+        var mainMenuManager = NSubstitute.Substitute.For<MainMenuController>();
+        mainMenuManager.SetSceneManangerController(sceneManager);
+        return mainMenuManager;
+    }
 }

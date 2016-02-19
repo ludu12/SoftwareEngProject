@@ -225,6 +225,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11474594, guid: d359ea4046db544e99643eb9efd890a0, type: 2}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: e7339c34a54ed934591a4fb14db79742, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d359ea4046db544e99643eb9efd890a0, type: 2}
   m_IsPrefabParent: 0
@@ -375,3 +379,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &1851127882 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 187128, guid: d359ea4046db544e99643eb9efd890a0, type: 2}
+  m_PrefabInternal: {fileID: 870249142}
+--- !u!114 &1851127883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1851127882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46879fbec76172349a304795118b3538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
