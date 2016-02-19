@@ -3,38 +3,35 @@ using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManager : MonoBehaviour, ISceneManager {
+public class MainMenuManager : MonoBehaviour {
 
-    public MainMenuController controller;
+    private ISceneManager sceneManager;
+
+    public MainMenuManager(ISceneManager sceneManager)
+    {
+        this.sceneManager = sceneManager;
+    }
 
     private void OnEnable()
     {
-        controller = GetComponent<MainMenuController>();
-        controller.SetSceneManangerController(this);
+        sceneManager = GetComponent<SceneManagerWrapper>();
     }    
 
     // start button
     public void OnStartButtonClick()
     {
-        controller.LoadScene("Game");
+        sceneManager.LoadScene("Game");
     }
 
     // how to play
 	public void OnHowToPlayButtonClick()
 	{
-        controller.LoadScene("Controls");
+        sceneManager.LoadScene("Controls");
 	}
 
     // back to menu button
 	public void OnControlsBackButtonClick()
 	{
-        controller.LoadScene("MainMenu");
+        sceneManager.LoadScene("MainMenu");
 	}
-
-    #region ISceneManager implementation
-    public void LoadScene(string scene)
-    {
-        SceneManager.LoadScene(scene);
-    }
-    #endregion
 }

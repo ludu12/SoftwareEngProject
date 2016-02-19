@@ -3,29 +3,35 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
 
-public class SplashScreenManager : MonoBehaviour, ISceneManager{
+public class SplashScreenManager : MonoBehaviour{
 
-    public MainMenuController controller;
+    private ISceneManager sceneManager;
+
+    public SplashScreenManager(ISceneManager sceneManager)
+    {
+        this.sceneManager = sceneManager;
+    }
 
     private void OnEnable()
     {
-        controller = GetComponent<MainMenuController>();
-        controller.SetSceneManangerController(this);
+        sceneManager = GetComponent<SceneManagerWrapper>();
     }
 
     // Use this for initialization
     void Start () {
-        StartCoroutine("DisplayMainMenu");
+        StartCoroutine("WaitAndCallDisplayMenu");
 	}
 
-    IEnumerator DisplayMainMenu()
+    // call ienumerator for delay
+    public IEnumerator WaitAndCallDisplayMenu()
 	{
 		yield return new WaitForSeconds (3);
-		controller.LoadScene ("MainMenu");
+        DisplayMenu();
 	}
 
-    public void LoadScene(string scene)
+    // Keep this method of IEnumerator so that tests work 
+    public void DisplayMenu()
     {
-        SceneManager.LoadScene(scene);
+        sceneManager.LoadScene("MainMenu");
     }
 }

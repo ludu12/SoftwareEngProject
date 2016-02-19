@@ -12,17 +12,11 @@ public class CarControllerTest
     [Test]
     public void Forward()
     {
-        var controller = GetController();
-        controller.OnForward();
-
-        //Assert.That(controller.speed > 0);
-        //Assert.That(controller.transform.position != controller.oldPos);
     }
 
     [Test]
     public void Right()
     {
-        var controller = GetController();
-        controller.OnRight();
+
     }
 }

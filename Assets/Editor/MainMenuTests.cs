@@ -2,6 +2,7 @@
 using UnityEngine;
 using NUnit.Framework;
 using UnityEngine.SceneManagement;
+using NSubstitute;
 
 [TestFixture]
 [Category("MainMenu")]
@@ -11,38 +12,72 @@ public class MainMenuTests
     public void OnStartButtonClick()
     {
         // Arrange
-        var sceneManagerStub = GetSceneManager();
-        var mainMenuManger = GetControllerMock(sceneManagerStub);
-
+        SceneManagerStub sceneManager = new SceneManagerStub();
+        MainMenuManager mainMenu = new MainMenuManager(sceneManager);
 
         // Act
-        //mainMenu.OnStartButtonClick();
+        mainMenu.OnStartButtonClick();
 
         // Assert
-        //Assert.That("Game" == sceneManagerStub.scene);
+        Assert.AreEqual("Game", sceneManager.scene);
     }
 
     [Test]
     public void OnHowToPlayButtonClick()
     {
+        // Arrange
+        SceneManagerStub sceneManager = new SceneManagerStub();
+        MainMenuManager mainMenu = new MainMenuManager(sceneManager);
+
+        // Act
+        mainMenu.OnHowToPlayButtonClick();
+
+        // Assert
+        Assert.AreEqual("Controls", sceneManager.scene);
 
     }
 
     [Test]
     public void OnControlsBackButtonClick()
     {
+        // Arrange
+        SceneManagerStub sceneManager = new SceneManagerStub();
+        MainMenuManager mainMenu = new MainMenuManager(sceneManager);
+
+        // Act
+        mainMenu.OnControlsBackButtonClick();
+
+        // Assert
+        Assert.AreEqual("MainMenu", sceneManager.scene);
 
     }
 
-    private ISceneManager GetSceneManager()
+
+    [Test]
+    public void SplashScreenRedirect()
     {
-        return NSubstitute.Substitute.For<ISceneManager>();
+        // Arrange
+        SceneManagerStub sceneManager = new SceneManagerStub();
+        SplashScreenManager splashScreen = new SplashScreenManager(sceneManager);
+
+        // Act
+        splashScreen.DisplayMenu();
+
+        // Assert
+        Assert.AreEqual("MainMenu", sceneManager.scene);
+
     }
 
-    private MainMenuController GetControllerMock(ISceneManager sceneManager)
+
+
+    // stub class for scenemanager
+    internal class SceneManagerStub : ISceneManager
     {
-        var mainMenuManager = NSubstitute.Substitute.For<MainMenuController>();
-        mainMenuManager.SetSceneManangerController(sceneManager);
-        return mainMenuManager;
+        public string scene;
+
+        public void LoadScene(string scene)
+        {
+            this.scene = scene;
+        }
     }
 }
