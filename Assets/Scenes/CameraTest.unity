@@ -1762,30 +1762,10 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!1 &761969586 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100004, guid: e306875a357eb4f4884219aa4d7347f5, type: 3}
-  m_PrefabInternal: {fileID: 1537306655}
 --- !u!4 &761969587 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400004, guid: e306875a357eb4f4884219aa4d7347f5, type: 3}
   m_PrefabInternal: {fileID: 1537306655}
---- !u!114 &761969588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 761969586}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d68083188fff84bf8bf20ef59a998919, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  friction: 3
-  lerpSpeed: 3
-  xDeg: 150
-  yDeg: 0
 --- !u!1 &977015771
 GameObject:
   m_ObjectHideFlags: 0

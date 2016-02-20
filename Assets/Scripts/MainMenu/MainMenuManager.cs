@@ -1,32 +1,38 @@
 ﻿    using UnityEngine;
 using System.Collections;
+using System;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private ISceneManager sceneManager;
 
-    public void OnStartButtonClick()
+    public MainMenuManager(ISceneManager sceneManager)
     {
-        SceneManager.LoadScene("Game");
+        this.sceneManager = sceneManager;
     }
 
+    private void OnEnable()
+    {
+        sceneManager = GetComponent<SceneManagerWrapper>();
+    }    
+
+    // start button
+    public void OnStartButtonClick()
+    {
+        sceneManager.LoadScene("Game");
+    }
+
+    // how to play
 	public void OnHowToPlayButtonClick()
 	{
-		SceneManager.LoadScene("Controls");
+        sceneManager.LoadScene("Controls");
 	}
 
+    // back to menu button
 	public void OnControlsBackButtonClick()
 	{
-		SceneManager.LoadScene("MainMenu");
+        sceneManager.LoadScene("MainMenu");
 	}
 
 	public void OnExitClick()

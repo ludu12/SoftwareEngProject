@@ -1,17 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
-public class SplashScreenManager : MonoBehaviour {
+public class SplashScreenManager : MonoBehaviour{
 
-	// Use this for initialization
-	void Start () {
-        StartCoroutine("DisplayMainMenu");
+    private ISceneManager sceneManager;
+
+    public SplashScreenManager(ISceneManager sceneManager)
+    {
+        this.sceneManager = sceneManager;
+    }
+
+    private void OnEnable()
+    {
+        sceneManager = GetComponent<SceneManagerWrapper>();
+    }
+
+    // Use this for initialization
+    void Start () {
+        StartCoroutine("WaitAndCallDisplayMenu");
 	}
 
-    IEnumerator DisplayMainMenu()
+    // call ienumerator for delay
+    public IEnumerator WaitAndCallDisplayMenu()
 	{
 		yield return new WaitForSeconds (3);
-		Application.LoadLevel ("MainMenu");
+        DisplayMenu();
 	}
+
+    // Keep this method of IEnumerator so that tests work 
+    public void DisplayMenu()
+    {
+        sceneManager.LoadScene("MainMenu");
+    }
 }
