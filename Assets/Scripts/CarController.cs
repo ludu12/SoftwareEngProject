@@ -4,7 +4,7 @@ using System.Collections;
 public class CarController : MonoBehaviour 
 {
     //Car speed
-    private float speed = 0f;
+    public float speed = 0f;
     bool isDriving = false;
     //Car limits
     public float maxSpeed = 15f;
@@ -14,10 +14,6 @@ public class CarController : MonoBehaviour
     public float rotationSpeed = 45f;
 	
     void FixedUpdate () 
-    {
-        KeyUpdate();
-	}
-    void KeyUpdate()
     {
         //Keyboard inputs for controlling car
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
@@ -33,18 +29,17 @@ public class CarController : MonoBehaviour
 
         isDriving = false;
     }
+
     public IEnumerator OnForward()
     {
         isDriving = true;
-
-        speed += accel;
-        if (speed > maxSpeed)
-            speed = maxSpeed;
+        // call logic
+        GetForwardSpeed();
 
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        
         yield return null;
     }
+
     public IEnumerator OnRight()
     {
         Vector3 turnVector = new Vector3(0, 1f, 0) * rotationSpeed * Time.deltaTime;
@@ -98,5 +93,13 @@ public class CarController : MonoBehaviour
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
         yield return null;
+    }
+
+    // Logic for getting speed of car going forward
+    public void GetForwardSpeed()
+    {
+        speed += accel;
+        if (speed > maxSpeed)
+            speed = maxSpeed;
     }
 }
