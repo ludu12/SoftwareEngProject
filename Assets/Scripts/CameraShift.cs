@@ -3,8 +3,6 @@ using System.Collections;
 
 public class CameraShift : MonoBehaviour {
 
-    public GameObject Camera;
-
     public Vector3 lookForwardPos;
     public Vector3 lookForwardRot;
 
@@ -20,6 +18,19 @@ public class CameraShift : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        assignStartValues();
+    }
+
+    // Update is called once per frame
+    void Update(){
+        shiftControl();
+    }
+
+    //Initialize start values for position and movement
+    public void assignStartValues(){
+        distance = 4.8f;
+        drop = 0.7f;
+
         lookForwardPos = transform.localPosition;
         lookForwardRot = transform.localRotation.eulerAngles;
 
@@ -28,38 +39,55 @@ public class CameraShift : MonoBehaviour {
         lookBackRot = transform.localRotation.eulerAngles;
         lookBackRot.y = lookBackRot.y + 180;
 
+        fperson = false;
         firstPersonPos = transform.localPosition;
         firstPersonPos.z += 3.5f;
         firstPersonPos.y -= drop;
         firstPersonRot = transform.localRotation.eulerAngles;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.LeftAlt)) {
-            if (fperson){
-                fperson = false;
-            }
-            else {
-                fperson = true;            
-            }
-            
+
+    //checks keybard inputs
+    void shiftControl()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftAlt)){
+            leftAltkey();
         }
 
-        if (Input.GetKey(KeyCode.LeftShift)) {
-            Camera.transform.localPosition = lookBackPos;
-            Camera.transform.localRotation = Quaternion.Euler(lookBackRot);
-        }        
-        else {
-            if (fperson) {
-                Camera.transform.localPosition = firstPersonPos;
-                Camera.transform.localRotation = Quaternion.Euler(firstPersonRot);
-            }
-            else {
-                Camera.transform.localPosition = lookForwardPos;
-                Camera.transform.localRotation = Quaternion.Euler(lookForwardRot);
-            }
+        if (Input.GetKey(KeyCode.LeftShift)){
+            leftShiftkey();
         }
-        
+        else {
+            putBackCamera();
+        }
+    }
+
+    //alternates between first and third person view
+    public void leftAltkey() {
+        if (fperson)
+        {
+            fperson = false;
+        }
+        else {
+            fperson = true;
+        }
+    }
+
+    //moves position and rotation to lookBack values
+    public void leftShiftkey(){
+        this.transform.localPosition = lookBackPos;
+        this.transform.localRotation = Quaternion.Euler(lookBackRot);
+    }
+
+    //Stops looking backwards and resets the camera position and rotation to 1st or 3rd person
+    public void putBackCamera(){
+        if (fperson)
+        {
+            this.transform.localPosition = firstPersonPos;
+            this.transform.localRotation = Quaternion.Euler(firstPersonRot);
+        }
+        else {
+            this.transform.localPosition = lookForwardPos;
+            this.transform.localRotation = Quaternion.Euler(lookForwardRot);
+        }
     }
 }
