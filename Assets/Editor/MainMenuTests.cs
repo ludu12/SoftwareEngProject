@@ -12,43 +12,46 @@ public class MainMenuTests
     public void OnStartButtonClick()
     {
         // Arrange
-        SceneManagerStub sceneManager = new SceneManagerStub();
-        MainMenuManager mainMenu = new MainMenuManager(sceneManager);
+		SceneManagerController sceneManager = new SceneManagerController();
+		var manager = GetManagerMock();
+		sceneManager.SetSceneManager(manager);
 
         // Act
-        mainMenu.OnStartButtonClick();
+        sceneManager.OnStartButton();
 
         // Assert
-        Assert.AreEqual("Game", sceneManager.scene);
+		manager.Received().LoadScene("Game");
     }
 
     [Test]
     public void OnHowToPlayButtonClick()
     {
-        // Arrange
-        SceneManagerStub sceneManager = new SceneManagerStub();
-        MainMenuManager mainMenu = new MainMenuManager(sceneManager);
+		// Arrange
+		SceneManagerController sceneManager = new SceneManagerController();
+		var manager = GetManagerMock();
+		sceneManager.SetSceneManager(manager);
 
-        // Act
-        mainMenu.OnHowToPlayButtonClick();
+		// Act
+		sceneManager.OnHowToPlayButton();
 
-        // Assert
-        Assert.AreEqual("Controls", sceneManager.scene);
+		// Assert
+		manager.Received().LoadScene("Controls");
 
     }
 
     [Test]
     public void OnControlsBackButtonClick()
     {
-        // Arrange
-        SceneManagerStub sceneManager = new SceneManagerStub();
-        MainMenuManager mainMenu = new MainMenuManager(sceneManager);
+		// Arrange
+		SceneManagerController sceneManager = new SceneManagerController();
+		var manager = GetManagerMock();
+		sceneManager.SetSceneManager(manager);
 
-        // Act
-        mainMenu.OnControlsBackButtonClick();
+		// Act
+		sceneManager.OnControlsBackButton();
 
-        // Assert
-        Assert.AreEqual("MainMenu", sceneManager.scene);
+		// Assert
+		manager.Received().LoadScene("MainMenu");
 
     }
 
@@ -56,28 +59,36 @@ public class MainMenuTests
     [Test]
     public void SplashScreenRedirect()
     {
-        // Arrange
-        SceneManagerStub sceneManager = new SceneManagerStub();
-        SplashScreenManager splashScreen = new SplashScreenManager(sceneManager);
+		// Arrange
+		SceneManagerController sceneManager = new SceneManagerController();
+		var manager = GetManagerMock();
+		sceneManager.SetSceneManager(manager);
 
-        // Act
-        splashScreen.DisplayMenu();
+		// Act
+		sceneManager.DisplayMenu();
 
-        // Assert
-        Assert.AreEqual("MainMenu", sceneManager.scene);
+		// Assert
+		manager.Received().LoadScene("MainMenu");
 
     }
 
+	[Test]
+	public void OnExitClick()
+	{
+		// Arrange
+		SceneManagerController sceneManager = new SceneManagerController();
+		var manager = GetManagerMock();
+		sceneManager.SetSceneManager(manager);
 
+		// Act
+		sceneManager.OnExit();
 
-    // stub class for scenemanager
-    internal class SceneManagerStub : ISceneManager
-    {
-        public string scene;
+		// Assert
+		manager.Received().Quit();
 
-        public void LoadScene(string scene)
-        {
-            this.scene = scene;
-        }
-    }
+	}
+
+	private ISceneManagerController GetManagerMock() {
+		return Substitute.For<ISceneManagerController> ();
+	}
 }
