@@ -1,51 +1,150 @@
 ﻿using UnityEngine;
 using System.Collections;
 using NUnit.Framework;
+using NSubstitute;
+
 
 [TestFixture]
 public class CameraShiftTest : MonoBehaviour
 {
+    Vector3 localPosition;
+    Quaternion localRotation;
+    Vector3 lookForwardPos;
+    Vector3 lookForwardRot;
+    Vector3 lookBackPos;
+    Vector3 lookBackRot;
+    Vector3 firstPersonPos;
+    Vector3 firstPersonRot;
+
+    CameraController camera;
+
     [Test]
-    public void SwitchToFirstPerson(){
-        //create instance of CameraShift and set to 3rd person
-        var camera = new CameraShift();
-        camera.fperson = false;
+    public void initializeValues()
+    {
+        camera = new CameraController();
+        var cam = GetCamMock();
+        camera.SetCameraController(cam);
 
-        //Alt was pressed
-        camera.leftAltkey();
+        Vector3 localPosition = new Vector3(0, 0, 0);
+        Quaternion localRotation = new Quaternion(0, 0, 0, 0);
 
-        // assert (verify) fperson is true
-        Assert.AreEqual(true, camera.fperson);
+        camera.assignStartValues(localPosition, localRotation);
+        setValues();
+
+
+
+        Assert.AreEqual(lookForwardPos, camera.lookForwardPos);
+        Assert.AreEqual(lookForwardRot, camera.lookForwardRot);
+        Assert.AreEqual(lookBackPos, camera.lookBackPos);
+        Assert.AreEqual(lookBackRot, camera.lookBackRot);
+        Assert.AreEqual(camera.fperson,false);
+        Assert.AreEqual(firstPersonPos, camera.firstPersonPos);
+        Assert.AreEqual(firstPersonRot, camera.firstPersonRot);
+
     }
 
     [Test]
     public void lookBack(){
-        //create instance of CameraShift
-        var camera = new CameraShift();
-        camera.lookForwardPos = new Vector3 (0f,1.5f,-2.5f);
+        camera = new CameraController();
+        var cam = GetCamMock();
+        camera.SetCameraController(cam);
 
-        //camera.assignStartValues();
+        camera.assignStartValues(new Vector3(0,0,0), new Quaternion(0,0,0,0));
+        setValues();
 
         //Alt was pressed
         camera.leftShiftkey();
 
-        //assert (verify) camera is in lookBack Position and Rotation
-        Assert.AreNotEqual(camera.transform.localPosition, camera.lookForwardPos);
-        //Assert.AreEqual(camera.transform.localRotation, Quaternion.Euler(camera.lookBackRot));        
+        cam.Received().SetPosition(lookBackPos);
+        cam.Received().SetRotation(lookBackRot);
     }
 
     [Test]
-    public void undoLookBack(){
-        //create instance of CameraShift
-        var camera = new CameraShift();
-        camera.assignStartValues();
+    public void putBackCameraWhenInFirstPerson()
+    {
+        camera = new CameraController();
+        var cam = GetCamMock();
+        camera.SetCameraController(cam);
 
-        //Alt was pressed
-        camera.leftShiftkey();
+        camera.assignStartValues(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        setValues();
+        camera.fperson = true;
         camera.putBackCamera();
 
-        //assert (verify) camera is in lookBack Position and Rotation
-        //Assert.AreEqual(camera.transform.localPosition, camera.lookForwardPos);
-        //Assert.AreEqual(camera.transform.localRotation, Quaternion.Euler(lookForwardRot));        
+        cam.Received().SetPosition(firstPersonPos);
+        cam.Received().SetRotation(firstPersonRot);
+    }
+
+    [Test]
+    public void putBackCameraWhenInThirdPerson()
+    {
+        camera = new CameraController();
+        var cam = GetCamMock();
+        camera.SetCameraController(cam);
+
+        camera.assignStartValues(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        setValues();
+        camera.fperson = false;
+        camera.putBackCamera();
+
+        cam.Received().SetPosition(lookForwardPos);
+        cam.Received().SetRotation(lookForwardRot);
+    }
+
+    [Test]
+    public void toggleCameraWhenInFirstPerson(){
+        camera = new CameraController();
+        var cam = GetCamMock();
+        camera.SetCameraController(cam);
+
+        camera.assignStartValues(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        setValues();
+        camera.fperson = true;
+        camera.leftAltkey();
+
+        Assert.AreEqual(camera.fperson, false);
+    }
+
+    [Test]
+    public void toggleCameraWhenInThirdPerson()
+    {
+        
+        camera = new CameraController();
+        var cam = GetCamMock();
+        camera.SetCameraController(cam);
+
+        camera.assignStartValues(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        setValues();
+        camera.fperson = false;
+        camera.leftAltkey();
+
+        Assert.AreEqual(camera.fperson,true);
+    }
+
+    private ICamController GetCamMock()
+    {
+        return Substitute.For<ICamController>();
+    }
+
+    private void setValues()
+    {
+        localPosition = new Vector3(0, 0, 0);
+        localRotation = new Quaternion(0, 0, 0, 0);
+
+        //set lookforward
+        lookForwardPos = localPosition;
+        lookForwardRot = localRotation.eulerAngles;
+
+        //set lookback
+        lookBackPos = localPosition;
+        lookBackPos.z = lookBackPos.z + camera.distance;
+        lookBackRot = localRotation.eulerAngles;
+        lookBackRot.y = lookBackRot.y + 180;
+
+        //set first person
+        firstPersonPos = localPosition;
+        firstPersonPos.z += 3.5f;
+        firstPersonPos.y -= camera.drop;
+        firstPersonRot = localRotation.eulerAngles;
     }
 }

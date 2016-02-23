@@ -31,14 +31,17 @@ public class CameraShift : MonoBehaviour {
         distance = 4.8f;
         drop = 0.7f;
 
+        //set lookforward
         lookForwardPos = transform.localPosition;
         lookForwardRot = transform.localRotation.eulerAngles;
 
+        //set lookback
         lookBackPos = transform.localPosition;
         lookBackPos.z = lookBackPos.z + distance;
         lookBackRot = transform.localRotation.eulerAngles;
         lookBackRot.y = lookBackRot.y + 180;
 
+        //set first person
         fperson = false;
         firstPersonPos = transform.localPosition;
         firstPersonPos.z += 3.5f;
