@@ -8,6 +8,7 @@ Library/
 Assets/AssetStoreTools*
 Assets/UnityTestTools
 UnityTestTools.meta
+Assets/Editor
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
