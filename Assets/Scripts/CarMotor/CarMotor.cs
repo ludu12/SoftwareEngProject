@@ -5,6 +5,7 @@ using System;
 public class CarMotor : MonoBehaviour, IMovementController {
 
     bool isDriving = false;
+    bool isFlipped = false;
     public CarMotorController carController;
 
     private void OnEnable()
@@ -17,18 +18,24 @@ public class CarMotor : MonoBehaviour, IMovementController {
 
     void FixedUpdate()
     {
-        //Keyboard inputs for controlling car
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            StartCoroutine(OnForward());
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            StartCoroutine(OnDown());
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            StartCoroutine(OnRight());
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            StartCoroutine(OnLeft());
+        if (!isFlipped)
+        {
+            //Keyboard inputs for controlling car
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+                StartCoroutine(OnForward());
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+                StartCoroutine(OnDown());
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+                StartCoroutine(OnRight());
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+                StartCoroutine(OnLeft());
+        }
+        if (Vector3.Dot(transform.up, Vector3.down) > 0)
+            isFlipped = true;
+        if (Input.GetKey(KeyCode.R) && isFlipped)
+            StartCoroutine(OnFlipped());
         if (!isDriving)
             StartCoroutine(OnSlowDown());
-
         isDriving = false;
     }
 
@@ -66,6 +73,12 @@ public class CarMotor : MonoBehaviour, IMovementController {
         yield return null;
     }
 
+    public IEnumerator OnFlipped()
+    {
+        Flip();
+        isFlipped = false;
+        yield return null;
+    }
     #endregion
 
     #region Movement Implementation
@@ -83,6 +96,13 @@ public class CarMotor : MonoBehaviour, IMovementController {
         // Rotate around y axis
         Vector3 v = Vector3.up * value * Time.deltaTime;
         transform.Rotate(v);
+    }
+
+    public void Flip()
+    {
+        Quaternion rot = transform.rotation;
+        Vector3 v = new Vector3(rot.x, rot.y, 0);
+        transform.localEulerAngles = v;
     }
     #endregion
 }
