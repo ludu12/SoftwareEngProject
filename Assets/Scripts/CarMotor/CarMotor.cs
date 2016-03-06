@@ -4,10 +4,15 @@ using System;
 
 public class CarMotor : MonoBehaviour, IMovementController {
 
-    bool isDriving = false;
     bool isFlipped = false;
     public CarMotorController carController;
-
+    Rigidbody rb;
+    private float maxSpeed = 200f;
+    bool braking = true;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     private void OnEnable()
     {
         // Set the Movement interface for the car controller to be this
@@ -34,9 +39,6 @@ public class CarMotor : MonoBehaviour, IMovementController {
             isFlipped = true;
         if (Input.GetKey(KeyCode.R) && isFlipped)
             StartCoroutine(OnFlipped());
-        if (!isDriving)
-            StartCoroutine(OnSlowDown());
-        isDriving = false;
     }
 
     #region Enumerators
@@ -45,7 +47,6 @@ public class CarMotor : MonoBehaviour, IMovementController {
 
     public IEnumerator OnForward()
     {
-        isDriving = true;
         carController.MoveForward();
         yield return null;
     }
@@ -62,14 +63,7 @@ public class CarMotor : MonoBehaviour, IMovementController {
     }
     public IEnumerator OnDown()
     {
-        isDriving = true;
         carController.MoveBackward();
-        yield return null;
-    }
-
-    public IEnumerator OnSlowDown()
-    {
-        carController.SlowDown();
         yield return null;
     }
 
@@ -87,15 +81,21 @@ public class CarMotor : MonoBehaviour, IMovementController {
 
     public void Translate(float value)
     {
-        Vector3 v = Vector3.forward * value * Time.deltaTime;
-        transform.Translate(v);
+        if (rb.velocity.sqrMagnitude > maxSpeed)
+            rb.AddForce(-value * transform.forward * 30, ForceMode.Force);
+
+        if (value < 0 && transform.InverseTransformDirection(rb.velocity).z > 0)
+            rb.AddForce(value * transform.forward, ForceMode.Force);
+        else
+            rb.AddForce(value * transform.forward * 30, ForceMode.Force);
     }
 
     public void Rotate(float value)
     {
         // Rotate around y axis
         Vector3 v = Vector3.up * value * Time.deltaTime;
-        transform.Rotate(v);
+        if (transform.InverseTransformDirection(rb.velocity).z != 0)
+            transform.Rotate(v);
     }
 
     public void Flip()

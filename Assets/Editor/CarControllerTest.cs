@@ -7,7 +7,7 @@ using NSubstitute;
 public class CarControllerTest
 {
 
-    [Test]
+    /*[Test]
     public void SpeedUp()
     {
         // Arrange
@@ -177,6 +177,6 @@ public class CarControllerTest
     private IMovementController GetMovementMock ()
     {
         return Substitute.For<IMovementController>();
-    }
+    }*/
 
 }
