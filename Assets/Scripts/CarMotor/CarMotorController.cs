@@ -14,6 +14,11 @@ public class CarMotorController
     public float rotationSpeed = 45f;
 
     private IMovementController movementController;
+    //One for each wheel
+    private IRotatorController rotatorControllerFR;
+    private IRotatorController rotatorControllerFL;
+    private IRotatorController rotatorControllerRR;
+    private IRotatorController rotatorControllerRL;
 
     public void MoveForward()
     {
@@ -77,10 +82,40 @@ public class CarMotorController
         }
     }
 
+    //send the current speed to wheels to calculate rotation
+    //left side orientation is backwards so speed is negative
+    public void setRotation(){
+        rotatorControllerFR.Rotate(speed);
+        rotatorControllerFL.Rotate(-speed);
+        rotatorControllerRR.Rotate(speed);
+        rotatorControllerRL.Rotate(-speed);
+    }
 
     // set movement controller
     public void SetMovementController(IMovementController movementController)
     {
         this.movementController = movementController;
+    }
+
+    // set rotator controllers depending on name of object calling
+    public void SetRotatorController(IRotatorController rotatorController, string name)
+    {
+        if (name == "FRONT_RIGHT_WHEEL")
+        {
+            this.rotatorControllerFR = rotatorController;
+        }
+        else if (name == "FRONT_LEFT_WHEEL")
+        {
+            this.rotatorControllerFL = rotatorController;
+        }
+        else if (name == "REAR_RIGHT_WHEEL")
+        {
+            this.rotatorControllerRR = rotatorController;
+        }
+        else if (name == "REAR_LEFT_WHEEL")
+        {
+            this.rotatorControllerRL = rotatorController;
+        }
+
     }
 }
