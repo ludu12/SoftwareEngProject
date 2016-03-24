@@ -177,6 +177,11 @@ public class CarControllerTest
     private IMovementController GetMovementMock ()
     {
         return Substitute.For<IMovementController>();
+<<<<<<< HEAD
     }*/
 
+=======
+    }
+    */
+>>>>>>> abdebb7defdc45a709371c176bc2b0a11aa34100
 }

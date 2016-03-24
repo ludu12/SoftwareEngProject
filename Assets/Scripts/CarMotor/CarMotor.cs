@@ -2,7 +2,8 @@
 using System.Collections;
 using System;
 
-public class CarMotor : MonoBehaviour, IMovementController {
+public class CarMotor : MonoBehaviour, IMovementController
+{
 
     bool isFlipped = false;
     public CarMotorController carController;

@@ -4,7 +4,7 @@ using System.Collections;
 public class CarMotorController
 {
     //Car limits
-    public float rotationSpeed = 70f;
+    public float rotationSpeed = 100f;
 
     private IMovementController movementController;
 
