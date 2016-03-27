@@ -612,8 +612,8 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161410}
   serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0
+  m_Mass: 1
+  m_Drag: 0.05
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -674,6 +674,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3ffa92d3e19417f955e28bdf6fff63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
+  playerName: 
+  body: {fileID: 2100000, guid: dcbf0570f8dea914db4d7eda437f4564, type: 2}
+  mirror: {fileID: 2100000, guid: 65897170845b5174bbce8bf7201dd14c, type: 2}
+  magentaBody: {fileID: 2800000, guid: f39ea7a700c20fc488dae161c04cd759, type: 3}
+  redBody: {fileID: 2800000, guid: 9c9b8426a95723c4aba52ef1bec09129, type: 3}
+  cyanBody: {fileID: 2800000, guid: 9bca33f676eb99841b8f42b3cf4d485c, type: 3}
+  blueBody: {fileID: 2800000, guid: 092ee4e9bf717f34aa7acee209e633ae, type: 3}
+  greenBody: {fileID: 2800000, guid: 0c93be0ca9c9376498364b0b35458e20, type: 3}
+  yellowBody: {fileID: 2800000, guid: 438fd47923fdb4144b610b495a7f40dd, type: 3}
+  magentaMirror: {fileID: 2800000, guid: 8e42908ec4864164480a61e49e6b676c, type: 3}
+  redMirror: {fileID: 2800000, guid: 1924ecbbb68406c4190cd3b5f0d28965, type: 3}
+  cyanMirror: {fileID: 2800000, guid: 6e8ce559adfdd0248a01e5ac21e3ea98, type: 3}
+  blueMirror: {fileID: 2800000, guid: 10f97a4a7ba6f064f81e3f7e8327f260, type: 3}
+  greenMirror: {fileID: 2800000, guid: be25c34332ad08442ba238c7712f47fa, type: 3}
+  yellowMirror: {fileID: 2800000, guid: 8e42908ec4864164480a61e49e6b676c, type: 3}
   carCam: {fileID: 2068360}
   audioListener: {fileID: 8129074}
 --- !u!114 &11427042
@@ -772,7 +788,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Drag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 161410}

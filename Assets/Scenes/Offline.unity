@@ -262,9 +262,36 @@ Prefab:
       propertyPath: m_PlayerSpawnMethod
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11444888, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
+      propertyPath: m_MinPlayers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444888, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
+      propertyPath: m_MaxPlayers
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444888, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
+      propertyPath: m_MaxPlayersPerConnection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &971952085 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 166704, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
+  m_PrefabInternal: {fileID: 971952084}
+--- !u!114 &971952086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 971952085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754ed40c4dc4eb54aa18e537f285e61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1197469456
 GameObject:
   m_ObjectHideFlags: 0
