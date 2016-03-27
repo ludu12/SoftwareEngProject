@@ -802,17 +802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483bb32b50304fe428dcf9f1140f322d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontLeftCollider: {fileID: 14641254}
-  frontRightCollider: {fileID: 14696532}
-  backLeftCollider: {fileID: 14656520}
-  backRightCollider: {fileID: 14685488}
-  frontLeftWheel: {fileID: 179974}
-  frontRightWheel: {fileID: 164672}
-  backLeftWheel: {fileID: 187000}
-  backRightWheel: {fileID: 147742}
-  speed: 1000
-  braking: 5000
-  turning: 30
 --- !u!146 &14641254
 WheelCollider:
   m_ObjectHideFlags: 1
@@ -935,7 +924,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: UpdatedGreenToonRaceCar
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 168950}
