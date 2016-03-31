@@ -676,20 +676,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 0}
   playerName: 
-  body: {fileID: 2100000, guid: dcbf0570f8dea914db4d7eda437f4564, type: 2}
-  mirror: {fileID: 2100000, guid: 65897170845b5174bbce8bf7201dd14c, type: 2}
-  magentaBody: {fileID: 2800000, guid: f39ea7a700c20fc488dae161c04cd759, type: 3}
-  redBody: {fileID: 2800000, guid: 9c9b8426a95723c4aba52ef1bec09129, type: 3}
-  cyanBody: {fileID: 2800000, guid: 9bca33f676eb99841b8f42b3cf4d485c, type: 3}
-  blueBody: {fileID: 2800000, guid: 092ee4e9bf717f34aa7acee209e633ae, type: 3}
-  greenBody: {fileID: 2800000, guid: 0c93be0ca9c9376498364b0b35458e20, type: 3}
-  yellowBody: {fileID: 2800000, guid: 438fd47923fdb4144b610b495a7f40dd, type: 3}
-  magentaMirror: {fileID: 2800000, guid: 8e42908ec4864164480a61e49e6b676c, type: 3}
-  redMirror: {fileID: 2800000, guid: 1924ecbbb68406c4190cd3b5f0d28965, type: 3}
-  cyanMirror: {fileID: 2800000, guid: 6e8ce559adfdd0248a01e5ac21e3ea98, type: 3}
-  blueMirror: {fileID: 2800000, guid: 10f97a4a7ba6f064f81e3f7e8327f260, type: 3}
-  greenMirror: {fileID: 2800000, guid: be25c34332ad08442ba238c7712f47fa, type: 3}
-  yellowMirror: {fileID: 2800000, guid: 8e42908ec4864164480a61e49e6b676c, type: 3}
+  body: {fileID: 173486}
+  rightMirror: {fileID: 121260}
+  leftMirror: {fileID: 179158}
+  magentaBody: {fileID: 2100000, guid: 0c00dfc14391f9849bd3ddfb3e4ad763, type: 2}
+  redBody: {fileID: 2100000, guid: a689c63e84d25244880538248282d62c, type: 2}
+  cyanBody: {fileID: 2100000, guid: b3622b83872695a4fbb76b98e47d081a, type: 2}
+  blueBody: {fileID: 2100000, guid: b63bdb2636717f143aaf2669d390a601, type: 2}
+  greenBody: {fileID: 2100000, guid: dcbf0570f8dea914db4d7eda437f4564, type: 2}
+  yellowBody: {fileID: 2100000, guid: 512d70393e6d8fe41b22b5809747f5d2, type: 2}
+  magentaMirror: {fileID: 2100000, guid: 7c612244715d6a94494eef35967664c8, type: 2}
+  redMirror: {fileID: 2100000, guid: f23790d5ccc23b8478f9c433a47deb67, type: 2}
+  cyanMirror: {fileID: 2100000, guid: 9ae5ee1a70b7e934aaa1bcc726aea59c, type: 2}
+  blueMirror: {fileID: 2100000, guid: c913adf84209c4c469d121fad2adf88c, type: 2}
+  greenMirror: {fileID: 2100000, guid: f8e55b99336c6d344895fa502573f376, type: 2}
+  yellowMirror: {fileID: 2100000, guid: 7db06adb5e4e5424e9fa4a045c66eeb5, type: 2}
   carCam: {fileID: 2068360}
   audioListener: {fileID: 8129074}
 --- !u!114 &11427042
@@ -766,7 +767,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
+  m_TransformSyncMode: 3
   m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -800,6 +801,74 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: blueBody
+      value: 
+      objectReference: {fileID: 2100000, guid: b63bdb2636717f143aaf2669d390a601, type: 2}
+    - target: {fileID: 0}
+      propertyPath: cyanBody
+      value: 
+      objectReference: {fileID: 2100000, guid: b3622b83872695a4fbb76b98e47d081a, type: 2}
+    - target: {fileID: 0}
+      propertyPath: redBody
+      value: 
+      objectReference: {fileID: 2100000, guid: a689c63e84d25244880538248282d62c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: magentaBody
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c00dfc14391f9849bd3ddfb3e4ad763, type: 2}
+    - target: {fileID: 0}
+      propertyPath: yellowBody
+      value: 
+      objectReference: {fileID: 2100000, guid: 512d70393e6d8fe41b22b5809747f5d2, type: 2}
+    - target: {fileID: 0}
+      propertyPath: greenBody
+      value: 
+      objectReference: {fileID: 2100000, guid: dcbf0570f8dea914db4d7eda437f4564, type: 2}
+    - target: {fileID: 0}
+      propertyPath: blueMirror
+      value: 
+      objectReference: {fileID: 2100000, guid: c913adf84209c4c469d121fad2adf88c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: cyanMirror
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ae5ee1a70b7e934aaa1bcc726aea59c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: redMirror
+      value: 
+      objectReference: {fileID: 2100000, guid: f23790d5ccc23b8478f9c433a47deb67, type: 2}
+    - target: {fileID: 0}
+      propertyPath: magentaMirror
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c612244715d6a94494eef35967664c8, type: 2}
+    - target: {fileID: 0}
+      propertyPath: yellowMirror
+      value: 
+      objectReference: {fileID: 2100000, guid: 7db06adb5e4e5424e9fa4a045c66eeb5, type: 2}
+    - target: {fileID: 0}
+      propertyPath: greenMirror
+      value: 
+      objectReference: {fileID: 2100000, guid: f8e55b99336c6d344895fa502573f376, type: 2}
+    - target: {fileID: 0}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 173486}
+    - target: {fileID: 0}
+      propertyPath: leftMirror
+      value: 
+      objectReference: {fileID: 179158}
+    - target: {fileID: 0}
+      propertyPath: rightMirror
+      value: 
+      objectReference: {fileID: 121260}
+    - target: {fileID: 0}
+      propertyPath: m_SendInterval
+      value: 0.033333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TransformSyncMode
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
