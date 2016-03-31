@@ -612,9 +612,15 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161410}
   serializedVersion: 2
+<<<<<<< HEAD
   m_Mass: 1
   m_Drag: 0.05
   m_AngularDrag: 0.05
+=======
+  m_Mass: 100
+  m_Drag: 0.05
+  m_AngularDrag: 0
+>>>>>>> 72f7599fc1c69fa1831021fdc3ee968420a716fa
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -704,6 +710,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced43a2d1cab27a4ca99af999b9b125a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frontLeftCollider: {fileID: 0}
+  frontRightCollider: {fileID: 0}
+  backLeftCollider: {fileID: 0}
+  backRightCollider: {fileID: 0}
+  frontLeftWheel: {fileID: 0}
+  frontRightWheel: {fileID: 0}
+  backLeftWheel: {fileID: 0}
+  backRightWheel: {fileID: 0}
+  speed: 1000
+  braking: 5000
+  turning: 45
 --- !u!114 &11438046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -792,13 +809,18 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_Mass
+<<<<<<< HEAD
       value: 1
+=======
+      value: 100
+>>>>>>> 72f7599fc1c69fa1831021fdc3ee968420a716fa
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Drag
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 0}
+<<<<<<< HEAD
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -870,6 +892,11 @@ Prefab:
       propertyPath: m_TransformSyncMode
       value: 3
       objectReference: {fileID: 0}
+=======
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+>>>>>>> 72f7599fc1c69fa1831021fdc3ee968420a716fa
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 161410}

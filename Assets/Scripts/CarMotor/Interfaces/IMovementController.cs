@@ -3,8 +3,8 @@ using System.Collections;
 
 public interface IMovementController {
 
-    void Translate(float value);
+    void Drive();
 
-    void Rotate(float value);
+    void RotateWheels();
 
 }
