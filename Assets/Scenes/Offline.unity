@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -413,7 +413,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444888, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
       propertyPath: m_MinPlayers
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444888, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
+      propertyPath: m_GamePlayerPrefab
+      value: 
+      objectReference: {fileID: 146428, guid: bc162d4a9edc5034a8884b7683d493f5, type: 2}
+    - target: {fileID: 11444888, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}
+      propertyPath: m_PlayScene
+      value: Online
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3207e24cbb45224479ca3d92c763aee7, type: 2}

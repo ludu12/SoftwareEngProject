@@ -110,7 +110,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 459152}
-  - 114: {fileID: 11413912}
   m_Layer: 0
   m_Name: toon-race-car
   m_TagString: Untagged
@@ -733,27 +732,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180826}
   m_Enabled: 1
---- !u!114 &11413912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39be9defbfcc2484fb243fed130935db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Camera: {fileID: 180826}
-  lookForwardPos: {x: 0, y: 0, z: 0}
-  lookForwardRot: {x: 0, y: 0, z: 0}
-  lookBackPos: {x: 0, y: 0, z: 0}
-  lookBackRot: {x: 0, y: 0, z: 0}
-  fperson: 0
-  firstPersonPos: {x: 0, y: 0, z: 0}
-  firstPersonRot: {x: 0, y: 0, z: 0}
-  distance: 0
-  drop: 0.7
 --- !u!114 &11487938
 MonoBehaviour:
   m_ObjectHideFlags: 1

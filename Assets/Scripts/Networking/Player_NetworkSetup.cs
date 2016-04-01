@@ -60,7 +60,7 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
 		if (isLocalPlayer) {
 			GetComponent<CarMotor>().enabled = true;
 			carCam.enabled = true;
-			carCam.GetComponent<CameraShift>().enabled = true;
+			carCam.GetComponent<SwitchCamera>().enabled = true;
 			audioListener.enabled = true;
 		}
         GameObject[] goArray = { body, leftMirror, rightMirror };
