@@ -1,26 +1,27 @@
 fileFormatVersion: 2
-guid: 788478d93ec5f0042baf5da13e58054d
+guid: 75b94b87508ff64429c14b346c204e82
+timeCreated: 1459280083
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Fence
-    100002: Fence 1
-    100004: Ground
-    100006: //RootNode
-    400000: Fence
-    400002: Fence 1
-    400004: Ground
-    400006: //RootNode
-    2300000: Fence
-    2300002: Fence 1
-    2300004: Ground
-    3300000: Fence
-    3300002: Fence 1
-    3300004: Ground
-    4300000: Ground
-    4300002: Fence
-    4300004: Fence
-    9500000: //RootNode
+    100000: //RootNode
+    100002: Bridge
+    100004: Fence1
+    100006: Fence2
+    400000: //RootNode
+    400002: Bridge
+    400004: Fence1
+    400006: Fence2
+    2300000: Bridge
+    2300002: Fence1
+    2300004: Fence2
+    3300000: Bridge
+    3300002: Fence1
+    3300004: Fence2
+    4300000: Fence1
+    4300002: Fence2
+    4300004: Bridge
   materials:
     importMaterials: 1
     materialName: 0
@@ -45,7 +46,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.15
+    globalScale: 15
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -59,11 +60,11 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 4
+    tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
