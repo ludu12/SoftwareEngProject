@@ -11,6 +11,7 @@ namespace UnityStandardAssets.Network
 
         public RectTransform lobbyServerList;
         public RectTransform lobbyPanel;
+        public RectTransform howToPlayPanel;
 
         public InputField matchNameInput;
 
@@ -61,6 +62,12 @@ namespace UnityStandardAssets.Network
             lobbyManager.StartMatchMaker();
             lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
             lobbyManager.ChangeTo(lobbyServerList);
+        }
+
+        public void OnClickHowToPlay()
+        {
+            lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
+            lobbyManager.ChangeTo(howToPlayPanel);
         }
 
         void onEndEditGameName(string text)

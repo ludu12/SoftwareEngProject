@@ -34,7 +34,7 @@ public class SceneManagerController {
 	// display menu after 3 seconds 
 	public void DisplayMenu()
 	{
-		sceneManagerController.LoadScene("MainMenu");
+		sceneManagerController.LoadScene("Offline");
 	}
 
 	public void SetSceneManager(ISceneManagerController sceneManagerController) {
