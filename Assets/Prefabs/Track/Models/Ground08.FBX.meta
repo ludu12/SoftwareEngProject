@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 788478d93ec5f0042baf5da13e58054d
+guid: 5a28818c4e5738f4580c278a6406be60
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -17,9 +17,9 @@ ModelImporter:
     3300000: Fence
     3300002: Fence 1
     3300004: Ground
-    4300000: Ground
+    4300000: Fence
     4300002: Fence
-    4300004: Fence
+    4300004: Ground
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -45,7 +45,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.12003
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -79,7 +79,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

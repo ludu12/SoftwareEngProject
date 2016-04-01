@@ -13,8 +13,9 @@ public class CameraController {
     public Vector3 firstPersonPos;
     public Vector3 firstPersonRot;
 
-    public float distance = 4.8f;
-    public float drop = 0.7f;
+    public float distance = 6.3f;
+    public float drop = 0.9f;
+    public float fpdistance = 4.3f;
 
     private ICamController camController;
 
@@ -34,7 +35,7 @@ public class CameraController {
         //set first person
         fperson = false;
         firstPersonPos = localPosition;
-        firstPersonPos.z += 3.5f;
+        firstPersonPos.z += fpdistance;
         firstPersonPos.y -= drop;
         firstPersonRot = localRotation.eulerAngles;
     }
