@@ -28,22 +28,27 @@ public class MapGenerationScript : MonoBehaviour {
     int sentinel = 0;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         initialize();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    char[] initialize()
+    // Update is called once per frame
+    void Update() {
+
+    }
+
+    int getDirection()
+    {
+        return (position[2]);
+    }
+
+    char[,] initialize()
     {
         Random.seed = (int)System.DateTime.Now.Ticks;
         int i;
         int j;
         int k;
-        char[] move = new char[15];
+        char[,] move = new char[15,2];
 
 	    for(k = 0; k< 2; k++){
 		    for(j = 0; j<Constants.maxLength; j++){
@@ -52,12 +57,14 @@ public class MapGenerationScript : MonoBehaviour {
 			    }
 		    }
 	    }
-
-        move[0] = 'S';
+        
+        move[0,0] = 'S';
+        move[0, 1] = position[2].ToString()[0];
         straight(map, position, queue, sentinel);
 	    for(sentinel = 1; sentinel< 14; sentinel++){
-		    move[sentinel] = mapStep();
-	    }
+		    move[sentinel,0] = mapStep();
+            move[sentinel,1] = position[2].ToString()[0];
+        }
         return (move);
     }
 
