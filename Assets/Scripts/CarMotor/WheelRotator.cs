@@ -3,14 +3,14 @@ using System.Collections;
 
 public class WheelRotator : MonoBehaviour, IRotatorController {
 
-    //public CarMotorController carController;
+    public CarMotorController carController;
 
     // Use this for initialization
     void Start () {
         // Set the Wheel Rotator interface for the car controller to be this
-        //carController = gameObject.transform.parent.GetComponent<CarMotor>().carController;
+        carController = gameObject.transform.parent.GetComponent<CarMotor>().carController;
         //sending gameobject name to differentiate between the wheels
-        //carController.SetRotatorController(this, gameObject.name);        
+        carController.SetRotatorController(this, gameObject.name);        
     }
 	
 	// Update is called once per frame
@@ -20,7 +20,7 @@ public class WheelRotator : MonoBehaviour, IRotatorController {
 
 
     public IEnumerator updateRotate(){
-        //carController.setRotation();
+        carController.setRotation();
         yield return null;
     }
 
