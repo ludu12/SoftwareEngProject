@@ -2,87 +2,83 @@
 using System.Collections;
 using System;
 
-public class CarMotor : MonoBehaviour, IMovementController {
+public class CarMotor : MonoBehaviour, IMovementController
+{
+    private SimpleCarMotorController carController;
 
-    bool isDriving = false;
-    public CarMotorController carController;
+    //Wheel Colliders
+    public WheelCollider frontLeftCollider;
+    public WheelCollider frontRightCollider;
+    public WheelCollider backLeftCollider;
+    public WheelCollider backRightCollider;
+
+    //Wheel gameobjects
+    public GameObject frontLeftWheel;
+    public GameObject frontRightWheel;
+    public GameObject backLeftWheel;
+    public GameObject backRightWheel;
+
+    //Speed,braking,turning
+    public float speed = 100f;
+    public float braking = 100f;
+    public float turning = 30f;
 
     private void OnEnable()
     {
         // Set the Movement interface for the car controller to be this
-        carController = new CarMotorController();
+        carController = new SimpleCarMotorController();
         carController.SetMovementController(this);
     }
 
-
+    // Update is called once per frame
     void FixedUpdate()
     {
-        //Keyboard inputs for controlling car
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            StartCoroutine(OnForward());
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            StartCoroutine(OnDown());
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            StartCoroutine(OnRight());
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            StartCoroutine(OnLeft());
-        if (!isDriving)
-            StartCoroutine(OnSlowDown());
-
-        isDriving = false;
+        MoveCar();
+        MoveWheels();
     }
 
-    #region Enumerators
-
-    // These enumerators call functions on the CarMotorController class and all logic is handled there
-
-    public IEnumerator OnForward()
+    public void MoveCar()
     {
-        isDriving = true;
-        carController.MoveForward();
-        yield return null;
+        carController.ControlCar();
     }
 
-    public IEnumerator OnRight()
+    public void MoveWheels()
     {
-        carController.TurnRight();
-        yield return null;
+        carController.ControlWheelRotation();
     }
-    public IEnumerator OnLeft()
+
+    public void Drive()
     {
-        carController.TurnLeft();
-        yield return null;
+        //Moving the car
+        backLeftCollider.motorTorque = Input.GetAxis("Vertical") * speed;
+        backRightCollider.motorTorque = Input.GetAxis("Vertical") * speed;
+
+        //Set brakeTorque to zero to ensure not braking anymore
+        backLeftCollider.brakeTorque = 0;
+        backRightCollider.brakeTorque = 0;
+
+        //Turning the car
+        frontRightCollider.steerAngle = Input.GetAxis("Horizontal") * turning;
+        frontLeftCollider.steerAngle = Input.GetAxis("Horizontal") * turning;
+
+        //Braking
+        if (Input.GetKey(KeyCode.Space))
+        {
+            backLeftCollider.brakeTorque = braking;
+            backRightCollider.brakeTorque = braking;
+        }
     }
-    public IEnumerator OnDown()
+
+    public void RotateWheels()
     {
-        isDriving = true;
-        carController.MoveBackward();
-        yield return null;
+        //Turn wheels
+        frontLeftWheel.transform.localEulerAngles = new Vector3(frontLeftWheel.transform.localEulerAngles.x, -(180 - (frontLeftCollider.steerAngle - frontLeftWheel.transform.localEulerAngles.z)), frontLeftWheel.transform.localEulerAngles.z);
+        frontRightWheel.transform.localEulerAngles = new Vector3(frontRightWheel.transform.localEulerAngles.x, frontRightCollider.steerAngle - frontRightWheel.transform.localEulerAngles.z, frontRightWheel.transform.localEulerAngles.z);
+
+        //Move wheels 
+        frontLeftWheel.transform.Rotate(frontLeftCollider.rpm / 60 * 360 * Time.deltaTime, 0, 0);
+        frontRightWheel.transform.Rotate(frontRightCollider.rpm / 60 * 360 * Time.deltaTime, 0, 0);
+        backLeftWheel.transform.Rotate(backLeftCollider.rpm / 60 * 360 * Time.deltaTime, 0, 0);
+        backRightWheel.transform.Rotate(backRightCollider.rpm / 60 * 360 * Time.deltaTime, 0, 0);
     }
-
-    public IEnumerator OnSlowDown()
-    {
-        carController.SlowDown();
-        yield return null;
-    }
-
-    #endregion
-
-    #region Movement Implementation
-
-    // This is where the car is actually moved or rotated
-
-    public void Translate(float value)
-    {
-        Vector3 v = Vector3.forward * value * Time.deltaTime;
-        transform.Translate(v);
-    }
-
-    public void Rotate(float value)
-    {
-        // Rotate around y axis
-        Vector3 v = Vector3.up * value * Time.deltaTime;
-        transform.Rotate(v);
-    }
-    #endregion
 }

@@ -1,42 +1,48 @@
-﻿    using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManager : MonoBehaviour {
+public class MainMenuManager : MonoBehaviour, ISceneManagerController{
 
-    private ISceneManager sceneManager;
+	public SceneManagerController sceneManager;
 
-    public MainMenuManager(ISceneManager sceneManager)
-    {
-        this.sceneManager = sceneManager;
-    }
+	private void OnEnable() {
+		sceneManager = new SceneManagerController();
+		sceneManager.SetSceneManager(this);
+	}
 
-    private void OnEnable()
-    {
-        sceneManager = GetComponent<SceneManagerWrapper>();
-    }    
+	// start button
+	public void OnStartButtonClick()
+	{
+		sceneManager.OnStartButton();
+	}
 
-    // start button
-    public void OnStartButtonClick()
-    {
-        sceneManager.LoadScene("Game");
-    }
-
-    // how to play
+	// how to play
 	public void OnHowToPlayButtonClick()
 	{
-        sceneManager.LoadScene("Controls");
+		sceneManager.OnHowToPlayButton();
 	}
 
-    // back to menu button
+	// back to menu button
 	public void OnControlsBackButtonClick()
 	{
-        sceneManager.LoadScene("MainMenu");
+		sceneManager.OnControlsBackButton();
 	}
 
+	// exit application
 	public void OnExitClick()
 	{
+		sceneManager.OnExit();
+	}
+
+	public void Quit(){
 		Application.Quit();
 	}
+
+	public void LoadScene(string scene)
+	{
+		SceneManager.LoadScene(scene);
+	}
+		
 }
