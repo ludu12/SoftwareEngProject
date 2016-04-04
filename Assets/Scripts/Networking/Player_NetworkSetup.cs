@@ -58,8 +58,10 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
     // Use this for initialization
     void Start () {
 		if (isLocalPlayer) {
-			GetComponent<CarMotor>().enabled = true;
-			carCam.enabled = true;
+			GetComponent<UnityStandardAssets.Vehicles.Car.CarController>().enabled = true;
+            GetComponent<UnityStandardAssets.Vehicles.Car.CarUserControl>().enabled = true;
+
+            carCam.enabled = true;
 			carCam.GetComponent<SwitchCamera>().enabled = true;
 			audioListener.enabled = true;
 		}
