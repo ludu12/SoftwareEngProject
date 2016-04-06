@@ -28,7 +28,7 @@ public class Player_SyncRot : NetworkBehaviour
         if (!isLocalPlayer)
         {
             myTransform.rotation = Quaternion.Lerp(myTransform.rotation, syncRot, Time.deltaTime * lerpRate);
-            Debug.Log(Time.deltaTime.ToString());
+            //Debug.Log(Time.deltaTime.ToString());
         }
     }
 

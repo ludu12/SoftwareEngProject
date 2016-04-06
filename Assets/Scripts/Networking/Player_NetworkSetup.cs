@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
 
@@ -36,6 +37,10 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
 
     public PlayerSetupContoller playerSetupContoller;
 
+    private NetworkClient nClient;
+    private int latency;
+    private Text latencyText;
+
     private void OnEnable()
     {
         playerSetupContoller = new PlayerSetupContoller();
@@ -66,8 +71,27 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
 			audioListener.enabled = true;
 		}
         GameObject[] goArray = { body, leftMirror, rightMirror };
+
+        // Test this
         playerSetupContoller.SetUpColor(color, goArray);
-	}
+
+        nClient = GameObject.Find("LobbyManager").GetComponent<NetworkLobbyManager>().client;
+        latencyText = GameObject.Find("LatencyText").GetComponent<Text>();
+    }
+
+    void Update()
+    {
+        ShowLatency();
+    }
+
+    void ShowLatency()
+    {
+        if (isLocalPlayer)
+        {
+            latency = nClient.GetRTT();
+            latencyText.text = latency.ToString() + " ms";
+        }
+    }
 
     #region PlayerSetup implementation
 

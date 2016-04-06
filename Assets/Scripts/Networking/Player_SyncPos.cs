@@ -2,15 +2,21 @@
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
+[NetworkSettings(channel = 0, sendInterval = 0.1f)]
 public class Player_SyncPos : NetworkBehaviour
 {
 
-    [SyncVar]
+    [SyncVar(hook = "SyncPositionValues")]
     private Vector3 syncPos; // automatically sends this to all clients
 
-    [SerializeField]Transform myTransform;
-    [SerializeField]float lerpRate = 15;
+    [SerializeField]
+    Transform myTransform;
+
+    private float lerpRate;
+    private float normalLerpRate = 15;
+    private float fasterLerpRate = 25;
 
     private Vector3 lastPos;
     private float posThreshold = 0.5f;
@@ -20,16 +26,22 @@ public class Player_SyncPos : NetworkBehaviour
     private int latency;
     private Text latencyText;
 
+    private List<Vector3> syncPosList = new List<Vector3>();
+    [SerializeField]
+    private bool useHistoricalLerping = false;
+    private float closeEnough = 0.3f;
+
     void Start()
     {
-        nClient = GameObject.Find("NetworkManager").GetComponent<NetworkManager>().client;
-        latencyText = GameObject.Find("Text").GetComponent<Text>();
+        nClient = GameObject.Find("LobbyManager").GetComponent<NetworkLobbyManager>().client;
+        latencyText = GameObject.Find("LatencyText").GetComponent<Text>();
+        lerpRate = normalLerpRate;
     }
 
     void Update()
     {
-        ShowLatency();
         LerpPos();
+        ShowLatency();
     }
 
     void FixedUpdate()
@@ -41,7 +53,14 @@ public class Player_SyncPos : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
-            myTransform.position = Vector3.Lerp(myTransform.position, syncPos, Time.deltaTime * lerpRate);
+            if(useHistoricalLerping)
+            {
+                HistoricalLerping();
+            }
+            else
+            {
+                OrdinaryLerping();
+            }
         }
     }
 
@@ -64,6 +83,13 @@ public class Player_SyncPos : NetworkBehaviour
         }
     }
 
+    [Client]
+    void SyncPositionValues(Vector3 lastestPos)
+    {
+        syncPos = lastestPos;
+        syncPosList.Add(syncPos);
+    }
+
     void ShowLatency()
     {
         if(isLocalPlayer)
@@ -72,4 +98,36 @@ public class Player_SyncPos : NetworkBehaviour
             latencyText.text = latency.ToString();
         }
     }
+
+    void OrdinaryLerping()
+    {
+        myTransform.position = Vector3.Lerp(myTransform.position, syncPos, Time.deltaTime * lerpRate);
+    }
+
+    void HistoricalLerping()
+    {
+        // make sure list isnt empty
+        if(syncPosList.Count > 0)
+        {
+            myTransform.position = Vector3.Lerp(myTransform.position, syncPosList[0], Time.deltaTime * lerpRate);
+
+            // if we are close enough, then remove this position
+            if(Vector3.Distance(myTransform.position, syncPosList[0]) < closeEnough)
+            {
+                syncPosList.RemoveAt(0);
+            }
+
+            if(syncPosList.Count > 10)
+            {
+                lerpRate = fasterLerpRate;
+            }
+            else
+            {
+                lerpRate = normalLerpRate;
+            }
+
+            Debug.Log(syncPosList.Count.ToString());
+        }
+    }
+
 }

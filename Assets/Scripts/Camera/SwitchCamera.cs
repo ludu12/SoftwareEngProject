@@ -30,6 +30,8 @@ public class SwitchCamera : MonoBehaviour, ICamController
         }
     }
 
+    #region implementation
+
     public void SetPosition(Vector3 newPosition)
     {
         this.transform.localPosition = newPosition;
@@ -39,4 +41,6 @@ public class SwitchCamera : MonoBehaviour, ICamController
     {
         this.transform.localRotation = Quaternion.Euler(eulerAngle);
     }
+
+    #endregion
 }
