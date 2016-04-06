@@ -67,7 +67,7 @@ public class MapGenerationScript : MonoBehaviour {
         {
             if ((leftPossible(map, position)==1) && (straightPossible(map, position) == 1) && (rightPossible(map, position)==1))
             {
-                nextVal = Random.Range(0,4);
+                nextVal = Random.Range(0,5);
                 switch (nextVal)
                 {
                     case 0:
@@ -89,7 +89,7 @@ public class MapGenerationScript : MonoBehaviour {
             }
             else if ((leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && !(rightPossible(map, position) == 1))
             {
-                nextVal = Random.Range(0, 3);
+                nextVal = Random.Range(0, 4);
                 switch (nextVal)
                 {
                     case 0:
@@ -108,7 +108,7 @@ public class MapGenerationScript : MonoBehaviour {
             }
             else if (!(leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && (rightPossible(map, position) == 1))
             {
-                nextVal = Random.Range(1, 4);
+                nextVal = Random.Range(1, 5);
                 switch (nextVal)
                 {
                     case 1:
@@ -127,7 +127,7 @@ public class MapGenerationScript : MonoBehaviour {
             }
             else if ((leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && (rightPossible(map, position) == 1))
             {
-                nextVal = Random.Range(0, 1);
+                nextVal = Random.Range(0, 2);
                 switch (nextVal)
                 {
                     case 0:
