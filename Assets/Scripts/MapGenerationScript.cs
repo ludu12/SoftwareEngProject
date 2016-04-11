@@ -55,7 +55,6 @@ public class MapGenerationScript : MonoBehaviour {
         sentinel = 1;
         while (sentinel< 14){
 		    move[sentinel,0] = mapStep();
-            lastMove = move[sentinel, 0];
             move[sentinel,1] = position[2].ToString()[0];
         }
         return (move);
@@ -346,6 +345,7 @@ public class MapGenerationScript : MonoBehaviour {
                     break;
             }
         }
+        lastMove = step;
         return (step);
     }
 
