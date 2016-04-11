@@ -21,6 +21,7 @@ public class MapGenerationScript : MonoBehaviour {
     */
     int[] position = { 9, 19, 0, 0, 0 };
     int[,] queue = new int[15, 3];
+    char lastMove;
 
     int i;
     int j;
@@ -54,6 +55,7 @@ public class MapGenerationScript : MonoBehaviour {
         sentinel = 1;
         while (sentinel< 14){
 		    move[sentinel,0] = mapStep();
+            lastMove = move[sentinel, 0];
             move[sentinel,1] = position[2].ToString()[0];
         }
         return (move);
@@ -626,53 +628,55 @@ public class MapGenerationScript : MonoBehaviour {
     {
         int flag = 0;
         int otherLevel = 0;
-        switch (position[4])
-        {
-            case 0:
-                otherLevel = 1;
-                break;
-            case 1:
-                otherLevel = 0;
-                break;
-        }
-        switch (position[2])
-        {
-            case 0:
-                if (position[1] != 1)
-                {
-                    if ((map[position[0], position[1] - 1, position[4]] == '*') && (map[position[0], position[1] - 1, otherLevel] == '*') && (map[position[0], position[1] - 2, otherLevel] == '*'))
+        if (!(lastMove.Equals('C'))){
+            switch (position[4])
+            {
+                case 0:
+                    otherLevel = 1;
+                    break;
+                case 1:
+                    otherLevel = 0;
+                    break;
+            }
+            switch (position[2])
+            {
+                case 0:
+                    if (position[1] != 1)
                     {
-                        flag = 1;
+                        if ((map[position[0], position[1] - 1, position[4]] == '*') && (map[position[0], position[1] - 1, otherLevel] == '*') && (map[position[0], position[1] - 2, otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
                     }
-                }
-                break;
-            case 1:
-                if (position[0] != Constants.maxLength - 2)
-                {
-                    if ((map[position[0] + 1, position[1], position[4]] == '*') && (map[position[0] + 1, position[1], otherLevel] == '*') && (map[position[0] + 2, position[1], otherLevel] == '*'))
+                    break;
+                case 1:
+                    if (position[0] != Constants.maxLength - 2)
                     {
-                        flag = 1;
+                        if ((map[position[0] + 1, position[1], position[4]] == '*') && (map[position[0] + 1, position[1], otherLevel] == '*') && (map[position[0] + 2, position[1], otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
                     }
-                }
-                break;
-            case 2:
-                if (position[1] != Constants.maxLength - 2)
-                {
-                    if ((map[position[0], position[1] + 1, position[4]] == '*') && (map[position[0], position[1] + 1, otherLevel] == '*') && (map[position[0], position[1] + 2, otherLevel] == '*'))
+                    break;
+                case 2:
+                    if (position[1] != Constants.maxLength - 2)
                     {
-                        flag = 1;
+                        if ((map[position[0], position[1] + 1, position[4]] == '*') && (map[position[0], position[1] + 1, otherLevel] == '*') && (map[position[0], position[1] + 2, otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
                     }
-                }
-                break;
-            case 3:
-                if (position[0] != 1)
-                {
-                    if ((map[position[0] - 1, position[1], position[4]] == '*') && (map[position[0] - 1, position[1], otherLevel] == '*') && (map[position[0] - 2, position[1], otherLevel] == '*'))
+                    break;
+                case 3:
+                    if (position[0] != 1)
                     {
-                        flag = 1;
+                        if ((map[position[0] - 1, position[1], position[4]] == '*') && (map[position[0] - 1, position[1], otherLevel] == '*') && (map[position[0] - 2, position[1], otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
                     }
-                }
-                break;
+                    break;
+            }
         }
         return flag;
     }
