@@ -10,6 +10,9 @@ public class MapController : MonoBehaviour {
     public Vector3 nextLocation;
     public GameObject Ground;
     public GameObject GroundT;
+    public GameObject BridgeU;
+    public GameObject BridgeT;
+    public GameObject BridgeF;
     Queue<Object> mapQueue;
     Object piece;
 
@@ -30,70 +33,199 @@ public class MapController : MonoBehaviour {
         for (int i = 1; i < 15 ;i++){
             Debug.Log(map[i, 0] + ", " + map[i, 1]);
             if (map[i, 0].Equals('S')){
-                if (map[i, 1].Equals('0'))
+                if (nextLocation.y == 0)
                 {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0,0,0));
-                    nextLocation.z += 20;
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (map[i, 1].Equals('1'))
+                else if(nextLocation.y == 20)
                 {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.x += 20;
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (map[i, 1].Equals('2'))
+            }
+            else if (map[i, 0].Equals('C'))
+            {
+                if (nextLocation.y == 20)
                 {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
-                    nextLocation.z -= 20;
+                    nextLocation.y -= 20;
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (map[i, 1].Equals('3'))
+                else if (nextLocation.y == 0)
                 {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.x -= 20;
-                }                
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                    nextLocation.y += 20;
+                }
             }
             else if(map[i, 0].Equals('R')){
-                if (map[i, 1].Equals('0'))
+                if (nextLocation.y == 0)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
-                    nextLocation.x += 20;
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
+                    }
                 }
-                else if (map[i, 1].Equals('1'))
+                else if(nextLocation.y == 20)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.z -= 20;
-                }
-                else if (map[i, 1].Equals('2'))
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
-                    nextLocation.x -= 20;
-                }
-                else if (map[i, 1].Equals('3'))
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
-                    nextLocation.z += 20;
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
+                    }
                 }
                 direction = (int)map[i, 1] - '0';
             }
             else if (map[i, 0].Equals('L')){
-                if (map[i, 1].Equals('0'))
+                if (nextLocation.y == 0)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.x -= 20;
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
                 }
-                else if (map[i, 1].Equals('1'))
+                else if(nextLocation.y == 20)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
-                    nextLocation.z += 20;
-                }
-                else if (map[i, 1].Equals('2'))
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
-                    nextLocation.x += 20;
-                }
-                else if (map[i, 1].Equals('3'))
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
-                    nextLocation.z -= 20;
+                    if (map[i, 1].Equals('0'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (map[i, 1].Equals('1'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (map[i, 1].Equals('2'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (map[i, 1].Equals('3'))
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
                 }
                 direction = (int)map[i, 1] - '0';
             }
@@ -111,73 +243,200 @@ public class MapController : MonoBehaviour {
             Debug.Log(step + "," + direction);
             
             if (step.Equals('S')){
-                if (direction == 0)
+                if (nextLocation.y == 0)
                 {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
-                    nextLocation.z += 20;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (direction == 1)
+                else if(nextLocation.y == 20)
                 {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.x += 20;
-                }
-                else if (direction == 2)
-                {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
-                    nextLocation.z -= 20;
-                }
-                else if (direction == 3)
-                {
-                    piece = Instantiate(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.x -= 20;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(BridgeF, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
 
+            }
+            else if (step.Equals('C'))
+            {
+                if (nextLocation.y == 20)
+                {
+                    nextLocation.y -= 20;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x -= 20;
+                    }
+                }
+                if (nextLocation.y == 0)
+                {
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                    nextLocation.y += 20;
+                }
             }
             else if (step.Equals('R')){
-                if (direction == 0)
+                if (nextLocation.y == 0)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
-                    nextLocation.z += 20;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (direction == 1)
+                else if(nextLocation.y == 20)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
-                    nextLocation.x += 20;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (direction == 2)
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.z -= 20;
-                }
-                else if (direction == 3)
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
-                    nextLocation.x -= 20;
-                }
-                
             }
             else if (step.Equals('L')){
-                if (direction == 0)
+                if (nextLocation.y == 0)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
-                    nextLocation.z += 20;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (direction == 1)
+                else if(nextLocation.y == 20)
                 {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
-                    nextLocation.x += 20;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
                 }
-                else if (direction == 2)
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
-                    nextLocation.z -= 20;
-                }
-                else if (direction == 3)
-                {
-                    piece = Instantiate(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
-                    nextLocation.x -= 20;
-                }               
-
             }
             mapQueue.Enqueue(piece);
             Destroy(mapQueue.Dequeue());  
