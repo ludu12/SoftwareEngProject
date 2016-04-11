@@ -15,6 +15,7 @@ public class MapController : MonoBehaviour {
     public GameObject BridgeF;
     Queue<Object> mapQueue;
     Object piece;
+    double bridgeSpawnHeight = 3.6;
 
     // Use this for initialization
     void Start () {
@@ -56,7 +57,7 @@ public class MapController : MonoBehaviour {
                         nextLocation.x -= 20;
                     }
                 }
-                else if(nextLocation.y == 20)
+                else
                 {
                     if (map[i, 1].Equals('0'))
                     {
@@ -82,53 +83,55 @@ public class MapController : MonoBehaviour {
             }
             else if (map[i, 0].Equals('C'))
             {
-                if (nextLocation.y == 20)
+                if (nextLocation.y == 0)
                 {
-                    nextLocation.y -= 20;
+                    nextLocation.y = (float)bridgeSpawnHeight;
                     if (map[i, 1].Equals('0'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
                         nextLocation.z += 20;
                     }
                     else if (map[i, 1].Equals('1'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
                         nextLocation.x += 20;
                     }
                     else if (map[i, 1].Equals('2'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
                         nextLocation.z -= 20;
                     }
                     else if (map[i, 1].Equals('3'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
                         nextLocation.x -= 20;
                     }
+                    nextLocation.y =(float) bridgeSpawnHeight * 2;
                 }
-                else if (nextLocation.y == 0)
+                else
                 {
+                    nextLocation.y = (float)bridgeSpawnHeight;
                     if (map[i, 1].Equals('0'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
                         nextLocation.z += 20;
                     }
                     else if (map[i, 1].Equals('1'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
                         nextLocation.x += 20;
                     }
                     else if (map[i, 1].Equals('2'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
                         nextLocation.z -= 20;
                     }
                     else if (map[i, 1].Equals('3'))
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
                         nextLocation.x -= 20;
                     }
-                    nextLocation.y += 20;
+                    nextLocation.y = 0;
                 }
             }
             else if(map[i, 0].Equals('R')){
@@ -155,7 +158,7 @@ public class MapController : MonoBehaviour {
                         nextLocation.z += 20;
                     }
                 }
-                else if(nextLocation.y == 20)
+                else
                 {
                     if (map[i, 1].Equals('0'))
                     {
@@ -204,7 +207,7 @@ public class MapController : MonoBehaviour {
                         nextLocation.z -= 20;
                     }
                 }
-                else if(nextLocation.y == 20)
+                else
                 {
                     if (map[i, 1].Equals('0'))
                     {
@@ -266,7 +269,7 @@ public class MapController : MonoBehaviour {
                         nextLocation.x -= 20;
                     }
                 }
-                else if(nextLocation.y == 20)
+                else
                 {
                     if (direction == 0)
                     {
@@ -293,53 +296,55 @@ public class MapController : MonoBehaviour {
             }
             else if (step.Equals('C'))
             {
-                if (nextLocation.y == 20)
-                {
-                    nextLocation.y -= 20;
-                    if (direction == 0)
-                    {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 0, 0));
-                        nextLocation.z += 20;
-                    }
-                    else if (direction == 1)
-                    {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 90, 0));
-                        nextLocation.x += 20;
-                    }
-                    else if (direction == 2)
-                    {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 180, 0));
-                        nextLocation.z -= 20;
-                    }
-                    else if (direction == 3)
-                    {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 270, 0));
-                        nextLocation.x -= 20;
-                    }
-                }
                 if (nextLocation.y == 0)
                 {
+                    nextLocation.y = (float)bridgeSpawnHeight;
                     if (direction == 0)
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 180, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
                         nextLocation.z += 20;
                     }
                     else if (direction == 1)
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 270, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
                         nextLocation.x += 20;
                     }
                     else if (direction == 2)
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 0, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
                         nextLocation.z -= 20;
                     }
                     else if (direction == 3)
                     {
-                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(0, 90, 0));
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
                         nextLocation.x -= 20;
                     }
-                    nextLocation.y += 20;
+                    nextLocation.y = (float)bridgeSpawnHeight * 2;
+                }
+                else
+                {
+                    nextLocation.y = (float)bridgeSpawnHeight;
+                    if (direction == 0)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (direction == 1)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (direction == 2)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (direction == 3)
+                    {
+                        piece = Instantiate(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
+                        nextLocation.x -= 20;
+                    }
+                    nextLocation.y = 0;
                 }
             }
             else if (step.Equals('R')){
@@ -366,7 +371,7 @@ public class MapController : MonoBehaviour {
                         nextLocation.x -= 20;
                     }
                 }
-                else if(nextLocation.y == 20)
+                else
                 {
                     if (direction == 0)
                     {
@@ -414,7 +419,7 @@ public class MapController : MonoBehaviour {
                         nextLocation.x -= 20;
                     }
                 }
-                else if(nextLocation.y == 20)
+                else
                 {
                     if (direction == 0)
                     {

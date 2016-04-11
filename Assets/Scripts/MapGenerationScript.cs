@@ -355,11 +355,28 @@ public class MapGenerationScript : MonoBehaviour {
         {
             if (position[3] <= 13)
             {
-                map[queue[position[3] + 1,0],queue[position[3] + 1,1], queue[position[3] + 1, 2]] = '*';
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
             }
             else if (position[3] > 13)
             {
-                map[queue[0,0],queue[0,1], queue[0, 2]] = '*';
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
             }
         }
 
@@ -397,11 +414,28 @@ public class MapGenerationScript : MonoBehaviour {
         {
             if (position[3] <= 13)
             {
-                map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
             }
             else if (position[3] > 13)
             {
-                map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
             }
         }
 
@@ -439,7 +473,8 @@ public class MapGenerationScript : MonoBehaviour {
         else {
             position[3]++;
         }
-        map[position[0], position[1], position[4]] = 'C';
+        map[position[0], position[1], 0] = 'C';
+        map[position[0], position[1], 1] = 'C';
     }
 
     void left(char[,,] map, int[] position, int[,] queue, int sentinel)
@@ -448,11 +483,28 @@ public class MapGenerationScript : MonoBehaviour {
         {
             if (position[3] <= 13)
             {
-                map[queue[position[3] + 1,0],queue[position[3] + 1,1], queue[position[3] + 1, 2]] = '*';
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
             }
             else if (position[3] > 13)
             {
-                map[queue[0,0],queue[0,1],queue[0,2]] = '*';
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
             }
         }
 
@@ -489,16 +541,33 @@ public class MapGenerationScript : MonoBehaviour {
     }
 
     void right(char[,,] map, int[] position, int[,] queue, int sentinel)
-        {
+    {
         if (sentinel == 14)
         {
             if (position[3] <= 13)
             {
-                map[queue[position[3] + 1,0],queue[position[3] + 1,1], queue[position[3] + 1, 2]] = '*';
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
             }
             else if (position[3] > 13)
             {
-                map[queue[0,0],queue[0,1], queue[0, 2]] = '*';
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
             }
         }
 
@@ -804,7 +873,7 @@ public class MapGenerationScript : MonoBehaviour {
         {
             char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
 		    int[] copyPosition = new int[5];
-            int[,] copyQueue = new int[15,2];
+            int[,] copyQueue = new int[15,3];
 		    int returnedStep;
             
             copyPosition = positionCopier(position);
@@ -1056,7 +1125,6 @@ public class MapGenerationScript : MonoBehaviour {
         int[] copyPosition = new int[5];
 
         int i;
-        int j;
         for (i = 0; i < 5; i++)
         {
             copyPosition[i] = tempPosition[i];
