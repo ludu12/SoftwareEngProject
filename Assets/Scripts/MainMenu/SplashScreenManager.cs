@@ -15,14 +15,15 @@ public class SplashScreenManager : MonoBehaviour, ISceneManagerController{
 
     // Use this for initialization
     void Start () {
-        StartCoroutine("WaitAndCallDisplayMenu");
+        sceneManager.DisplayLobbyScene();
+        //StartCoroutine("WaitAndCallDisplayMenu");
 	}
 
     // call ienumerator for delay
     public IEnumerator WaitAndCallDisplayMenu()
 	{
 		yield return new WaitForSeconds (3);
-        sceneManager.DisplayMenu();
+        sceneManager.DisplayLobbyScene();
 	}
 
 	public void Quit(){
@@ -33,4 +34,8 @@ public class SplashScreenManager : MonoBehaviour, ISceneManagerController{
 		SceneManager.LoadScene(scene);
 	}
 
+    public string GetCurrentScene()
+    {
+        return SceneManager.GetActiveScene().ToString();
+    }
 }

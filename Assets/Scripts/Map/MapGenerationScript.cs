@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
+using System.Linq;
 
 static class Constants
 {
     public const int maxLength = 20;
 }
 
-
-public class MapGenerationScript : MonoBehaviour {
+public class MapGenerationScript {
 
     char[,,] map = new char[Constants.maxLength, Constants.maxLength, 2];
     /*
@@ -27,6 +27,477 @@ public class MapGenerationScript : MonoBehaviour {
     int j;
     int k;
     int sentinel = 0;
+
+    IMap mapInterface;
+
+    private char[,] myMap = new char[15, 2];
+    private char step;
+    int direction;
+    private Vector3 nextLocation;
+    Queue<GameObject> mapQueue;
+    GameObject piece;
+    double bridgeSpawnHeight = 3.6;
+
+
+    /// <summary>
+    /// Set the interface for this humble object
+    /// </summary>
+    /// <param name="mapInterface"></param>
+    public void SetMapInterface(IMap mapInterface)
+    {
+        this.mapInterface = mapInterface;
+    }
+
+    /// <summary>
+    /// Call this method in the mono script to initialize the map, then parse through and instantiate the prefabs
+    /// </summary>
+    public void Start()
+    {
+        nextLocation = new Vector3(0, 0, 0);
+        mapQueue = new Queue<GameObject>();
+        myMap = initialize();
+
+        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.identity);
+        mapQueue.Enqueue(piece);
+        nextLocation.z += 20;
+
+        direction = (int)myMap[0, 1] - '0';
+        myMap[1, 1] = '0';
+        for (int i = 1; i < 15; i++)
+        {
+            if (myMap[i, 0].Equals('S'))
+            {
+                if (nextLocation.y == 0)
+                {
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                }
+                else
+                {
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                }
+            }
+            else if (myMap[i, 0].Equals('C'))
+            {
+                if (nextLocation.y == 0)
+                {
+                    nextLocation.y = (float)bridgeSpawnHeight;
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                    nextLocation.y = (float)bridgeSpawnHeight * 2;
+                }
+                else
+                {
+                    nextLocation.y = (float)bridgeSpawnHeight;
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                        nextLocation.x -= 20;
+                    }
+                    nextLocation.y = 0;
+                }
+            }
+            else if (myMap[i, 0].Equals('R'))
+            {
+                if (nextLocation.y == 0)
+                {
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
+                    }
+                }
+                else
+                {
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
+                    }
+                }
+                direction = (int)myMap[i, 1] - '0';
+            }
+            else if (myMap[i, 0].Equals('L'))
+            {
+                if (nextLocation.y == 0)
+                {
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                }
+                else
+                {
+                    if (myMap[i, 1].Equals('0'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
+                    }
+                    else if (myMap[i, 1].Equals('1'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
+                    }
+                    else if (myMap[i, 1].Equals('2'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
+                    }
+                    else if (myMap[i, 1].Equals('3'))
+                    {
+                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
+                    }
+                }
+                direction = (int)myMap[i, 1] - '0';
+            }
+            mapQueue.Enqueue(piece);
+        }
+    }
+
+    /// <summary>
+    /// This method will be called from the mono script, either from a collider notification or through invoke repeating call
+    /// </summary>
+    public void GenerateMapPiece()
+    {
+        step = mapStep();
+        direction = getDirection();
+
+        if (step.Equals('S'))
+        {
+            if (nextLocation.y == 0)
+            {
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.x -= 20;
+                }
+            }
+            else
+            {
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.x -= 20;
+                }
+            }
+
+        }
+        else if (step.Equals('C'))
+        {
+            if (nextLocation.y == 0)
+            {
+                nextLocation.y = (float)bridgeSpawnHeight;
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                    nextLocation.x -= 20;
+                }
+                nextLocation.y = (float)bridgeSpawnHeight * 2;
+            }
+            else
+            {
+                nextLocation.y = (float)bridgeSpawnHeight;
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                    nextLocation.x -= 20;
+                }
+                nextLocation.y = 0;
+            }
+        }
+        else if (step.Equals('R'))
+        {
+            if (nextLocation.y == 0)
+            {
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    nextLocation.x -= 20;
+                }
+            }
+            else
+            {
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    nextLocation.x -= 20;
+                }
+            }
+        }
+        else if (step.Equals('L'))
+        {
+            if (nextLocation.y == 0)
+            {
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.x -= 20;
+                }
+            }
+            else
+            {
+                if (direction == 0)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    nextLocation.z += 20;
+                }
+                else if (direction == 1)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    nextLocation.x += 20;
+                }
+                else if (direction == 2)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    nextLocation.z -= 20;
+                }
+                else if (direction == 3)
+                {
+                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    nextLocation.x -= 20;
+                }
+            }
+        }
+        mapQueue.Enqueue(piece);
+        mapInterface.DestroyThis(mapQueue.Dequeue());
+    }
+
+    /// <summary>
+    /// Gets the index of the position of this piece
+    /// </summary>
+    /// <param name="piece"></param>
+    /// <returns></returns>
+    public bool isFrontPiece(GameObject piece)
+    {
+        Debug.Log(mapQueue.ToArray().ToList().IndexOf(piece));
+
+        if (mapQueue.ToArray().ToList().IndexOf(piece) > 10)
+            return true;
+        else
+            return false;
+    }
 
     public int getDirection()
     {

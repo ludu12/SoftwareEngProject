@@ -48,10 +48,10 @@ public class MainMenuTests
 		sceneManager.SetSceneManager(manager);
 
 		// Act
-		sceneManager.OnControlsBackButton();
+		sceneManager.OnLobbyManagerBackButton();
 
 		// Assert
-		manager.Received().LoadScene("MainMenu");
+		manager.Received().LoadScene("Offline");
 
     }
 
@@ -65,7 +65,7 @@ public class MainMenuTests
 		sceneManager.SetSceneManager(manager);
 
 		// Act
-		sceneManager.DisplayMenu();
+		sceneManager.DisplayLobbyScene();
 
 		// Assert
 		manager.Received().LoadScene("MainMenu");

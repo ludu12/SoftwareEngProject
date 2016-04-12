@@ -10,7 +10,7 @@ public class SceneManagerController {
 	// start button
 	public void OnStartButton()
 	{
-		sceneManagerController.LoadScene("Game");
+		sceneManagerController.LoadScene("SinglePlayerSurvival");
 	}
 
 	// how to play
@@ -20,9 +20,12 @@ public class SceneManagerController {
 	}
 
 	// back to menu button
-	public void OnControlsBackButton()
+	public void OnLobbyManagerBackButton()
 	{
-		sceneManagerController.LoadScene("MainMenu");
+        Debug.Log(sceneManagerController.GetCurrentScene());
+
+        if (sceneManagerController.GetCurrentScene() == "SinglePlayerSurvival")
+		    sceneManagerController.LoadScene("LobbyScene");
 	}
 
 	// exit application
@@ -32,9 +35,9 @@ public class SceneManagerController {
 	}
 
 	// display menu after 3 seconds 
-	public void DisplayMenu()
+	public void DisplayLobbyScene()
 	{
-		sceneManagerController.LoadScene("Offline");
+		sceneManagerController.LoadScene("LobbyScene");
 	}
 
 	public void SetSceneManager(ISceneManagerController sceneManagerController) {

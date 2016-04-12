@@ -2,21 +2,32 @@
 using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Network;
 
 public class MainMenuManager : MonoBehaviour, ISceneManagerController{
 
-	public SceneManagerController sceneManager;
+    
+	private SceneManagerController sceneManager;
+    public LobbyManager lobbyManager;
 
-	private void OnEnable() {
-		sceneManager = new SceneManagerController();
-		sceneManager.SetSceneManager(this);
-	}
+    void Awake()
+    {
+        sceneManager = new SceneManagerController();
+        sceneManager.SetSceneManager(this);
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
-	// start button
-	public void OnStartButtonClick()
+    // single player mode
+    public void OnSinglePlayerSurvivalModeClick()
 	{
 		sceneManager.OnStartButton();
-	}
+        lobbyManager.ChangeTo(null);
+
+        Destroy(GameObject.Find("MainMenuUI(Clone)"));
+        lobbyManager.backDelegate = lobbyManager.SimpleBackClbk;
+        lobbyManager.topPanel.isInGame = true;
+        lobbyManager.topPanel.ToggleVisibility(false);
+    }
 
 	// how to play
 	public void OnHowToPlayButtonClick()
@@ -25,9 +36,9 @@ public class MainMenuManager : MonoBehaviour, ISceneManagerController{
 	}
 
 	// back to menu button
-	public void OnControlsBackButtonClick()
+	public void OnLobbyManagerBackButton()
 	{
-		sceneManager.OnControlsBackButton();
+		sceneManager.OnLobbyManagerBackButton();
 	}
 
 	// exit application
@@ -36,7 +47,9 @@ public class MainMenuManager : MonoBehaviour, ISceneManagerController{
 		sceneManager.OnExit();
 	}
 
-	public void Quit(){
+    #region Interface implementation
+
+    public void Quit(){
 		Application.Quit();
 	}
 
@@ -44,5 +57,11 @@ public class MainMenuManager : MonoBehaviour, ISceneManagerController{
 	{
 		SceneManager.LoadScene(scene);
 	}
-		
+
+    public string GetCurrentScene()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+
+    #endregion
 }

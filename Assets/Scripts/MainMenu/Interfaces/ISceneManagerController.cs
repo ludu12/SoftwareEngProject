@@ -3,7 +3,9 @@ using System.Collections;
 
 public interface ISceneManagerController {
 
-    void LoadScene(string scene); 
+    void LoadScene(string scene);
+
+    string GetCurrentScene();
 
 	void Quit();
 }

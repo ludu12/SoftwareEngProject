@@ -5,8 +5,15 @@ public class MapPrefab : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log(col + " has entered new box");
         GetComponent<BoxCollider>().enabled = false; // disable the box collider so that we cannot re enter this one
-        NotificationCenter.DefaultCenter().PostNotification(this, "GenerateMapPiece");
+
+        NotificationCenter.DefaultCenter().PostNotification(this, "UserGenerateMapPiece", this.gameObject);
+        NotificationCenter.DefaultCenter().PostNotification(this, "ScoreIncrease");
+    }
+    
+    void OnDestroy()
+    {
+        NotificationCenter.DefaultCenter().RemoveObserver(this, "UserGenerateMapPiece");
+        NotificationCenter.DefaultCenter().RemoveObserver(this, "ScoreIncrease");
     }
 }

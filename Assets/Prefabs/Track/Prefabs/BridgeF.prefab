@@ -44,6 +44,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 441582}
+  - 114: {fileID: 11412794}
+  - 65: {fileID: 6532620}
   m_Layer: 0
   m_Name: BridgeF
   m_TagString: Untagged
@@ -243,6 +245,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6044636, y: 18.593534, z: 2.2995887}
   m_Center: {x: 0.00000590086, y: -0.0017056463, z: -0.07141196}
+--- !u!65 &6532620
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 20, z: 20}
+  m_Center: {x: 0, y: 10, z: 0}
 --- !u!65 &6596836
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -255,6 +269,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.604459, y: 18.593525, z: 2.2995884}
   m_Center: {x: 0.0000034868717, y: -0.0017023084, z: -0.0714119}
+--- !u!114 &11412794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941393b6b9f2c0d4cbadf5abf28468b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
