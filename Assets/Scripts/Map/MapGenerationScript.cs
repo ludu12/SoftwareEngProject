@@ -20,7 +20,8 @@ public class MapGenerationScript : MonoBehaviour {
     * 4 = level
     */
     int[] position = { 9, 19, 0, 0, 0 };
-    int[,] queue = new int[15, 2];
+    int[,] queue = new int[15, 3];
+    char lastMove;
 
     int i;
     int j;
@@ -65,9 +66,34 @@ public class MapGenerationScript : MonoBehaviour {
         char step = '*';
         while (step == '*')
         {
-            if ((leftPossible(map, position)==1) && (straightPossible(map, position) == 1) && (rightPossible(map, position)==1))
+            if ((leftPossible(map, position)==1) && (straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && (rightPossible(map, position)==1))
             {
-                nextVal = Random.Range(0,5);
+                nextVal = Random.Range(0,6);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = -1;
+                        break;
+                    case 1:
+                        nextVal = 0;
+                        break;
+                    case 2:
+                        nextVal = 0;
+                        break;
+                    case 3:
+                        nextVal = 0;
+                        break;
+                    case 4:
+                        nextVal = 1;
+                        break;
+                    case 5:
+                        nextVal = 2;
+                        break;
+                }
+            }
+            else if ((leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && !(rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 5);
                 switch (nextVal)
                 {
                     case 0:
@@ -87,7 +113,144 @@ public class MapGenerationScript : MonoBehaviour {
                         break;
                 }
             }
-            else if ((leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && !(rightPossible(map, position) == 1))
+            else if ((leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && !(levelChangePossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 5);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = -1;
+                        break;
+                    case 1:
+                        nextVal = 0;
+                        break;
+                    case 2:
+                        nextVal = 0;
+                        break;
+                    case 3:
+                        nextVal = 0;
+                        break;
+                    case 4:
+                        nextVal = 2;
+                        break;
+                }
+            }
+            else if (!(leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(1, 6);
+                switch (nextVal)
+                {
+                    case 1:
+                        nextVal = 0;
+                        break;
+                    case 2:
+                        nextVal = 0;
+                        break;
+                    case 3:
+                        nextVal = 0;
+                        break;
+                    case 4:
+                        nextVal = 1;
+                        break;
+                    case 5:
+                        nextVal = 6;
+                        break;
+                }
+            }
+            else if ((leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 3);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = -1;
+                        break;
+                    case 1:
+                        nextVal = 1;
+                        break;
+                    case 2:
+                        nextVal = 2;
+                        break;
+                }
+            }
+            else if (!(leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 2);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = 1;
+                        break;
+                    case 1:
+                        nextVal = 2;
+                        break;
+                }
+            }
+            else if (!(leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && !(levelChangePossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 4);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = 0;
+                        break;
+                    case 1:
+                        nextVal = 0;
+                        break;
+                    case 2:
+                        nextVal = 0;
+                        break;
+                    case 3:
+                        nextVal = 2;
+                        break;
+                }
+            }
+            else if (!(leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && !(rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 4);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = 0;
+                        break;
+                    case 1:
+                        nextVal = 0;
+                        break;
+                    case 2:
+                        nextVal = 0;
+                        break;
+                    case 3:
+                        nextVal = 1;
+                        break;
+                }
+            }
+            else if ((leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && !(levelChangePossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 2);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = -1;
+                        break;
+                    case 1:
+                        nextVal = 2;
+                        break;
+                }
+            }
+            else if ((leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && !(rightPossible(map, position) == 1))
+            {
+                nextVal = Random.Range(0, 2);
+                switch (nextVal)
+                {
+                    case 0:
+                        nextVal = -1;
+                        break;
+                    case 1:
+                        nextVal = 1;
+                        break;
+                }
+            }
+            else if ((leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && !(levelChangePossible(map, position) == 1) && !(rightPossible(map, position) == 1))
             {
                 nextVal = Random.Range(0, 4);
                 switch (nextVal)
@@ -106,49 +269,21 @@ public class MapGenerationScript : MonoBehaviour {
                         break;
                 }
             }
-            else if (!(leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && (rightPossible(map, position) == 1))
-            {
-                nextVal = Random.Range(1, 5);
-                switch (nextVal)
-                {
-                    case 1:
-                        nextVal = 0;
-                        break;
-                    case 2:
-                        nextVal = 0;
-                        break;
-                    case 3:
-                        nextVal = 0;
-                        break;
-                    case 4:
-                        nextVal = 1;
-                        break;
-                }
-            }
-            else if ((leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && (rightPossible(map, position) == 1))
-            {
-                nextVal = Random.Range(0, 2);
-                switch (nextVal)
-                {
-                    case 0:
-                        nextVal = -1;
-                        break;
-                    case 1:
-                        nextVal = 1;
-                        break;
-                }
-            }
-            else if ((leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && !(rightPossible(map, position) == 1))
+            else if ((leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && !(levelChangePossible(map, position) == 1) && !(rightPossible(map, position) == 1))
             {
                 nextVal = -1;
             }
-            else if (!(leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && !(rightPossible(map, position) == 1))
+            else if (!(leftPossible(map, position) == 1) && (straightPossible(map, position) == 1) && !(levelChangePossible(map, position) == 1) && !(rightPossible(map, position) == 1))
             {
                 nextVal = 0;
             }
-            else if (!(leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            else if (!(leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && (levelChangePossible(map, position) == 1) && !(rightPossible(map, position) == 1))
             {
                 nextVal = 1;
+            }
+            else if (!(leftPossible(map, position) == 1) && !(straightPossible(map, position) == 1) && !(levelChangePossible(map, position) == 1) && (rightPossible(map, position) == 1))
+            {
+                nextVal = 2;
             }
             switch (nextVal)
             {
@@ -181,6 +316,20 @@ public class MapGenerationScript : MonoBehaviour {
                     }
                     break;
                 case 1:
+                    if (levelChangePossible(map, position) == 1)
+                    {
+                        if (levelChangeLeft(map, position, queue, sentinel) >= 15)
+                        {
+                            levelChange(map, position, queue, sentinel);
+                            if (sentinel < 14)
+                            {
+                                sentinel++;
+                            }
+                            step = 'C';
+                        }
+                    }
+                    break;
+                case 2:
                     if (rightPossible(map, position)==1)
                     {
                         if (rightLeft(map, position, queue, sentinel) >= 15)
@@ -196,6 +345,7 @@ public class MapGenerationScript : MonoBehaviour {
                     break;
             }
         }
+        lastMove = step;
         return (step);
     }
 
@@ -205,11 +355,28 @@ public class MapGenerationScript : MonoBehaviour {
         {
             if (position[3] <= 13)
             {
-                map[queue[position[3] + 1,0],queue[position[3] + 1,1],0] = '*';
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
             }
             else if (position[3] > 13)
             {
-                map[queue[0,0],queue[0,1],0] = '*';
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
             }
         }
 
@@ -230,6 +397,7 @@ public class MapGenerationScript : MonoBehaviour {
         }
         queue[position[3],0] = position[0];
         queue[position[3],1] = position[1];
+        queue[position[3],2] = position[4];
         if (position[3] > 13)
         {
             position[3] = 0;
@@ -240,17 +408,103 @@ public class MapGenerationScript : MonoBehaviour {
         map[position[0],position[1],position[4]] = 'S';
     }
 
+    void levelChange(char[,,] map, int[] position, int[,] queue, int sentinel)
+    {
+        if (sentinel == 14)
+        {
+            if (position[3] <= 13)
+            {
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
+            }
+            else if (position[3] > 13)
+            {
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
+            }
+        }
+
+        switch (position[2])
+        {
+            case 0:
+                position[1] = position[1] - 1;
+                break;
+            case 1:
+                position[0] = position[0] + 1;
+                break;
+            case 2:
+                position[1] = position[1] + 1;
+                break;
+            case 3:
+                position[0] = position[0] - 1;
+                break;
+        }
+        switch (position[4])
+        {
+            case 0:
+                position[4] = 1;
+                break;
+            case 1:
+                position[4] = 0;
+                break;
+        }
+        queue[position[3], 0] = position[0];
+        queue[position[3], 1] = position[1];
+        queue[position[3], 2] = position[4];
+        if (position[3] > 13)
+        {
+            position[3] = 0;
+        }
+        else {
+            position[3]++;
+        }
+        map[position[0], position[1], 0] = 'C';
+        map[position[0], position[1], 1] = 'C';
+    }
+
     void left(char[,,] map, int[] position, int[,] queue, int sentinel)
     {
         if (sentinel == 14)
         {
             if (position[3] <= 13)
             {
-                map[queue[position[3] + 1,0],queue[position[3] + 1,1],0] = '*';
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
             }
             else if (position[3] > 13)
             {
-                map[queue[0,0],queue[0,1],0] = '*';
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
             }
         }
 
@@ -275,6 +529,7 @@ public class MapGenerationScript : MonoBehaviour {
         }
         queue[position[3],0] = position[0];
         queue[position[3],1] = position[1];
+        queue[position[3], 2] = position[4];
         if (position[3] > 13)
         {
             position[3] = 0;
@@ -286,16 +541,33 @@ public class MapGenerationScript : MonoBehaviour {
     }
 
     void right(char[,,] map, int[] position, int[,] queue, int sentinel)
-        {
+    {
         if (sentinel == 14)
         {
             if (position[3] <= 13)
             {
-                map[queue[position[3] + 1,0],queue[position[3] + 1,1],0] = '*';
+                if (map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]].Equals('C'))
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 0] = '*';
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[position[3] + 1, 0], queue[position[3] + 1, 1], queue[position[3] + 1, 2]] = '*';
+
+                }
             }
             else if (position[3] > 13)
             {
-                map[queue[0,0],queue[0,1],0] = '*';
+                if (map[queue[0, 0], queue[0, 1], queue[0, 2]].Equals('C'))
+                {
+                    map[queue[0, 0], queue[0, 1], 0] = '*';
+                    map[queue[0, 0], queue[0, 1], 1] = '*';
+                }
+                else
+                {
+                    map[queue[0, 0], queue[0, 1], queue[0, 2]] = '*';
+                }
             }
         }
 
@@ -320,6 +592,7 @@ public class MapGenerationScript : MonoBehaviour {
         }
         queue[position[3],0] = position[0];
         queue[position[3],1] = position[1];
+        queue[position[3], 2] = position[4];
         if (position[3] > 13)
         {
             position[3] = 0;
@@ -338,7 +611,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 0:
                 if (position[0] != 0)
                 {
-                    if ((map[position[0],position[1] - 1,0] == '*') && (map[position[0] - 1,position[1] - 1,0] == '*'))
+                    if ((map[position[0],position[1] - 1, position[4]] == '*') && (map[position[0] - 1,position[1] - 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -347,7 +620,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 1:
                 if (position[1] != 0)
                 {
-                    if ((map[position[0] + 1,position[1],0] == '*') && (map[position[0] + 1,position[1] - 1,0] == '*'))
+                    if ((map[position[0] + 1,position[1], position[4]] == '*') && (map[position[0] + 1,position[1] - 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -356,7 +629,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 2:
                 if (position[0] != Constants.maxLength - 1)
                 {
-                    if ((map[position[0],position[1] + 1,0] == '*') && (map[position[0] + 1,position[1] + 1,0] == '*'))
+                    if ((map[position[0],position[1] + 1, position[4]] == '*') && (map[position[0] + 1,position[1] + 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -365,7 +638,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 3:
                 if (position[1] != Constants.maxLength - 1)
                 {
-                    if ((map[position[0] - 1,position[1],0] == '*') && (map[position[0] - 1,position[1] + 1,0] == '*'))
+                    if ((map[position[0] - 1,position[1], position[4]] == '*') && (map[position[0] - 1,position[1] + 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -383,7 +656,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 0:
                 if (position[1] != 1)
                 {
-                    if ((map[position[0],position[1] - 1,0] == '*') && (map[position[0],position[1] - 2,0] == '*'))
+                    if ((map[position[0],position[1] - 1, position[4]] == '*') && (map[position[0],position[1] - 2, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -392,7 +665,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 1:
                 if (position[0] != Constants.maxLength - 2)
                 {
-                    if ((map[position[0] + 1,position[1],0] == '*') && (map[position[0] + 2,position[1],0] == '*'))
+                    if ((map[position[0] + 1,position[1], position[4]] == '*') && (map[position[0] + 2,position[1], position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -401,7 +674,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 2:
                 if (position[1] != Constants.maxLength - 2)
                 {
-                    if ((map[position[0],position[1] + 1,0] == '*') && (map[position[0],position[1] + 2,0] == '*'))
+                    if ((map[position[0],position[1] + 1, position[4]] == '*') && (map[position[0],position[1] + 2, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -410,12 +683,69 @@ public class MapGenerationScript : MonoBehaviour {
             case 3:
                 if (position[0] != 1)
                 {
-                    if ((map[position[0] - 1,position[1],0] == '*') && (map[position[0] - 2,position[1],0] == '*'))
+                    if ((map[position[0] - 1,position[1], position[4]] == '*') && (map[position[0] - 2,position[1], position[4]] == '*'))
                     {
                         flag = 1;
                     }
                 }
                 break;
+        }
+        return flag;
+    }
+
+    int levelChangePossible(char[,,] map, int[] position)
+    {
+        int flag = 0;
+        int otherLevel = 0;
+        if (!(lastMove.Equals('C'))){
+            switch (position[4])
+            {
+                case 0:
+                    otherLevel = 1;
+                    break;
+                case 1:
+                    otherLevel = 0;
+                    break;
+            }
+            switch (position[2])
+            {
+                case 0:
+                    if (position[1] != 1)
+                    {
+                        if ((map[position[0], position[1] - 1, position[4]] == '*') && (map[position[0], position[1] - 1, otherLevel] == '*') && (map[position[0], position[1] - 2, otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
+                    }
+                    break;
+                case 1:
+                    if (position[0] != Constants.maxLength - 2)
+                    {
+                        if ((map[position[0] + 1, position[1], position[4]] == '*') && (map[position[0] + 1, position[1], otherLevel] == '*') && (map[position[0] + 2, position[1], otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
+                    }
+                    break;
+                case 2:
+                    if (position[1] != Constants.maxLength - 2)
+                    {
+                        if ((map[position[0], position[1] + 1, position[4]] == '*') && (map[position[0], position[1] + 1, otherLevel] == '*') && (map[position[0], position[1] + 2, otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
+                    }
+                    break;
+                case 3:
+                    if (position[0] != 1)
+                    {
+                        if ((map[position[0] - 1, position[1], position[4]] == '*') && (map[position[0] - 1, position[1], otherLevel] == '*') && (map[position[0] - 2, position[1], otherLevel] == '*'))
+                        {
+                            flag = 1;
+                        }
+                    }
+                    break;
+            }
         }
         return flag;
     }
@@ -428,7 +758,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 0:
                 if (position[0] != Constants.maxLength - 1)
                 {
-                    if ((map[position[0],position[1] - 1,0] == '*') && (map[position[0] + 1,position[1] - 1,0] == '*'))
+                    if ((map[position[0],position[1] - 1, position[4]] == '*') && (map[position[0] + 1,position[1] - 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -437,7 +767,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 1:
                 if (position[1] != Constants.maxLength - 1)
                 {
-                    if ((map[position[0] + 1,position[1],0] == '*') && (map[position[0] + 1,position[1] + 1,0] == '*'))
+                    if ((map[position[0] + 1,position[1], position[4]] == '*') && (map[position[0] + 1,position[1] + 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -446,7 +776,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 2:
                 if (position[0] != 0)
                 {
-                    if ((map[position[0],position[1] + 1,0] == '*') && (map[position[0] - 1,position[1] + 1,0] == '*'))
+                    if ((map[position[0],position[1] + 1, position[4]] == '*') && (map[position[0] - 1,position[1] + 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -455,7 +785,7 @@ public class MapGenerationScript : MonoBehaviour {
             case 3:
                 if (position[1] != 0)
                 {
-                    if ((map[position[0] - 1,position[1],0] == '*') && (map[position[0] - 1,position[1] - 1,0] == '*'))
+                    if ((map[position[0] - 1,position[1], position[4]] == '*') && (map[position[0] - 1,position[1] - 1, position[4]] == '*'))
                     {
                         flag = 1;
                     }
@@ -469,27 +799,13 @@ public class MapGenerationScript : MonoBehaviour {
     {
         char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
 	    int[] copyPosition = new int[5];
-        int[,] copyQueue = new int[15,2];
+        int[,] copyQueue = new int[15,3];
 	
 	    int step = 1;
-        int i;
-        int j;
-        int k;
-	    for(i = 0; i< 5; i++){
-		    copyPosition[i] = position[i];
-	    }
-	    for(k = 0; k< 2; k++){
-		    for(j = 0; j<Constants.maxLength; j++){
-			    for(i = 0; i<Constants.maxLength; i++){
-				    copyMap[i,j,k] = map[i,j,k];
-			    }
-		    }
-	    }
-	    for(j = 0; j< 2; j++){
-		    for(i = 0; i< 15; i++){
-			    copyQueue[i,j]=queue[i,j];
-		    }
-	    }
+
+        copyPosition = positionCopier(position);
+        copyMap = mapCopier(map);
+        copyQueue = queueCopier(queue);
 
         left(copyMap, copyPosition, copyQueue, sentinel);
         step = step + 1;
@@ -501,27 +817,13 @@ public class MapGenerationScript : MonoBehaviour {
     {
         char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
 	    int[] copyPosition = new int[5];
-        int[,] copyQueue = new int[15,2];
+        int[,] copyQueue = new int[15,3];
 	
 	    int step = 1;
-        int i;
-        int j;
-        int k;
-	    for(i = 0; i< 5; i++){
-		    copyPosition[i] = position[i];
-	    }
-	    for(k = 0; k< 2; k++){
-		    for(j = 0; j<Constants.maxLength; j++){
-			    for(i = 0; i<Constants.maxLength; i++){
-				    copyMap[i,j,k] = map[i,j,k];
-			    }
-		    }
-	    }
-	    for(j = 0; j< 2; j++){
-		    for(i = 0; i< 15; i++){
-			    copyQueue[i,j]=queue[i,j];
-		    }
-	    }
+
+        copyPosition = positionCopier(position);
+        copyMap = mapCopier(map);
+        copyQueue = queueCopier(queue);
 
         straight(copyMap, copyPosition, copyQueue, sentinel);
         step = step + 1;
@@ -529,31 +831,35 @@ public class MapGenerationScript : MonoBehaviour {
 	    return step;
     }
 
+    int levelChangeLeft(char[,,] map, int[] position, int[,] queue, int sentinel)
+    {
+        char[,,] copyMap = new char[Constants.maxLength, Constants.maxLength, 2];
+        int[] copyPosition = new int[5];
+        int[,] copyQueue = new int[15, 3];
+
+        int step = 1;
+
+        copyPosition = positionCopier(position);
+        copyMap = mapCopier(map);
+        copyQueue = queueCopier(queue);
+
+        levelChange(copyMap, copyPosition, copyQueue, sentinel);
+        step = step + 1;
+        step = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+        return step;
+    }
+
     int rightLeft(char[,,] map, int[] position, int[,] queue, int sentinel)
     {
         char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
 	    int[] copyPosition = new int[5];
-        int[,] copyQueue = new int[15,2];
+        int[,] copyQueue = new int[15,3];
 	
 	    int step = 1;
-        int i;
-        int j;
-        int k;
-	    for(i = 0; i< 5; i++){
-		    copyPosition[i] = position[i];
-	    }
-	    for(k = 0; k< 2; k++){
-		    for(j =0; j<Constants.maxLength; j++){
-			    for(i = 0; i<Constants.maxLength; i++){
-				    copyMap[i,j,k] = map[i,j,k];
-			    }
-		    }
-	    }
-	    for(j = 0; j< 2; j++){
-		    for(i = 0; i< 15; i++){
-			    copyQueue[i,j]=queue[i,j];
-		    }
-	    }
+
+        copyPosition = positionCopier(position);
+        copyMap = mapCopier(map);
+        copyQueue = queueCopier(queue);
 
         right(copyMap, copyPosition, copyQueue, sentinel);
         step = step + 1;
@@ -567,28 +873,13 @@ public class MapGenerationScript : MonoBehaviour {
         {
             char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
 		    int[] copyPosition = new int[5];
-            int[,] copyQueue = new int[15,2];
+            int[,] copyQueue = new int[15,3];
 		    int returnedStep;
-
-            int i;
-            int j;
-            int k;
-		    for(i = 0; i< 5; i++){
-			    copyPosition[i] = position[i];
-		    }
-		    for(k = 0; k< 2; k++){
-			    for(j = 0; j<Constants.maxLength; j++){
-				    for(i = 0; i<Constants.maxLength; i++){
-					    copyMap[i,j,k] = map[i,j,k];
-				    }
-			    }
-		    }
-		    for(j = 0; j< 2; j++){
-			    for(i = 0; i< 15; i++){
-				    copyQueue[i,j]=queue[i,j];
-			    }
-		    }
-		    if(leftPossible(copyMap, copyPosition) == 1){
+            
+            copyPosition = positionCopier(position);
+            copyMap = mapCopier(map);
+            copyQueue = queueCopier(queue);
+            if (leftPossible(copyMap, copyPosition) == 1){
                 left(copyMap, copyPosition, copyQueue, sentinel);
                 step = step + 1;
 			    if(step< 15){
@@ -599,22 +890,10 @@ public class MapGenerationScript : MonoBehaviour {
 			    }
 			    if(returnedStep< 15){
 				    step = step - 1;
-				    for(i = 0; i< 5; i++){
-					    copyPosition[i] = position[i];
-				    }
-				    for(k = 0; k< 2; k++){
-					    for(j = 0; j<Constants.maxLength; j++){
-						    for(i = 0; i<Constants.maxLength; i++){
-							    copyMap[i,j,k] = map[i,j,k];
-						    }
-					    }
-				    }
-				    for(j = 0; j< 2; j++){
-					    for(i = 0; i< 15; i++){
-						    copyQueue[i,j]=queue[i,j];
-					    }
-				    }
-				    if(straightPossible(copyMap, copyPosition) == 1){
+                    copyPosition = positionCopier(position);
+                    copyMap = mapCopier(map);
+                    copyQueue = queueCopier(queue);
+                    if (straightPossible(copyMap, copyPosition) == 1){
                         straight(copyMap, copyPosition, copyQueue, sentinel);
                         step = step + 1;
 					    if(step< 15){
@@ -622,38 +901,49 @@ public class MapGenerationScript : MonoBehaviour {
 					    }
 					    else{
 						    return(step);
-					    }
-					    if(returnedStep< 15){
-						    step = step - 1;
-						    for(i = 0; i< 5; i++){
-							    copyPosition[i] = position[i];
-						    }
-						    for(k = 0; k< 2; k++){
-							    for(j = 0; j<Constants.maxLength; j++){
-								    for(i = 0; i<Constants.maxLength; i++){
-									    copyMap[i,j,k] = map[i,j,k];
-								    }
-							    }
-						    }
-						    for(j = 0; j< 2; j++){
-							    for(i = 0; i< 15; i++){
-								    copyQueue[i,j]=queue[i,j];
-							    }
-						    }
-						    if(rightPossible(copyMap, copyPosition) == 1){
-                                right(copyMap, copyPosition, copyQueue, sentinel);
+                        }
+                        if (returnedStep < 15)
+                        {
+                            step = step - 1;
+                            copyPosition = positionCopier(position);
+                            copyMap = mapCopier(map);
+                            copyQueue = queueCopier(queue);
+                            if (levelChangePossible(copyMap, copyPosition) == 1)
+                            {
+                                levelChange(copyMap, copyPosition, copyQueue, sentinel);
                                 step = step + 1;
-							    if(step< 15){
-								    returnedStep = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
-								    if(returnedStep == 15){
-									    return(returnedStep);
-								    }
-							    }
-							    else{
-								    return(step);
-							    }
-						    }
-					    }
+                                if (step < 15)
+                                {
+                                    returnedStep = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+                                }
+                                else {
+                                    return (step);
+                                }
+                                if (returnedStep < 15)
+                                {
+                                    step = step - 1;
+                                    copyPosition = positionCopier(position);
+                                    copyMap = mapCopier(map);
+                                    copyQueue = queueCopier(queue);
+                                    if (rightPossible(copyMap, copyPosition) == 1)
+                                    {
+                                        right(copyMap, copyPosition, copyQueue, sentinel);
+                                        step = step + 1;
+                                        if (step < 15)
+                                        {
+                                            returnedStep = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+                                            if (returnedStep == 15)
+                                            {
+                                                return (returnedStep);
+                                            }
+                                        }
+                                        else {
+                                            return (step);
+                                        }
+                                    }
+                                }
+                            }
+                        }
 					    else{
 						    return(returnedStep);
 					    }
@@ -674,21 +964,9 @@ public class MapGenerationScript : MonoBehaviour {
 			    }
 			    if(returnedStep< 15){
 				    step = step - 1;
-				    for(i = 0; i< 5; i++){
-					    copyPosition[i] = position[i];
-				    }
-				    for(k = 0; k< 2; k++){
-					    for(j = 0; j<Constants.maxLength; j++){
-						    for(i = 0; i<Constants.maxLength; i++){
-							    copyMap[i,j,k] = map[i,j,k];
-						    }
-					    }
-				    }
-				    for(j = 0; j< 2; j++){
-					    for(i = 0; i< 15; i++){
-						    copyQueue[i,j]=queue[i,j];
-					    }
-				    }
+                    copyPosition = positionCopier(position);
+                    copyMap = mapCopier(map);
+                    copyQueue = queueCopier(queue);
 				    if(rightPossible(copyMap, copyPosition) == 1){
                         right(copyMap, copyPosition, copyQueue, sentinel);
                         step = step + 1;
@@ -698,16 +976,115 @@ public class MapGenerationScript : MonoBehaviour {
 					    else{
 						    return(step);
 					    }
-					    if(returnedStep == 15){
-						    return(returnedStep);
-					    }
+                        if (returnedStep< 15){
+				            step = step - 1;
+                            copyPosition = positionCopier(position);
+                            copyMap = mapCopier(map);
+                            copyQueue = queueCopier(queue);
+				            if(levelChangePossible(copyMap, copyPosition) == 1){
+                                levelChange(copyMap, copyPosition, copyQueue, sentinel);
+                                step = step + 1;
+					            if(step< 15){
+						            step = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+					            }
+					            else{
+						            return(step);
+					            }
+					            if(returnedStep < 15)
+                                {
+                                    step = step - 1;
+                                    copyPosition = positionCopier(position);
+                                    copyMap = mapCopier(map);
+                                    copyQueue = queueCopier(queue);
+                                    if (rightPossible(copyMap, copyPosition) == 1)
+                                    {
+                                        right(copyMap, copyPosition, copyQueue, sentinel);
+                                        step = step + 1;
+                                        if (step < 15)
+                                        {
+                                            step = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+                                        }
+                                        else {
+                                            return (step);
+                                        }
+                                        if (returnedStep < 15)
+                                        {
+                                            return (returnedStep);
+                                        }
+                                    }
+                                }
+				            }
+			            }
+			            else{
+				            return(returnedStep);
+			            }
 				    }
 			    }
 			    else{
 				    return(returnedStep);
 			    }
-		    }
-		    else if(rightPossible(copyMap, copyPosition) == 1){
+            }
+            else if (levelChangePossible(copyMap, copyPosition) == 1)
+            {
+                levelChange(copyMap, copyPosition, copyQueue, sentinel);
+                step = step + 1;
+                if (step < 15)
+                {
+                    returnedStep = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+                }
+                else {
+                    return (step);
+                }
+                if (returnedStep < 15)
+                {
+                    step = step - 1;
+                    copyPosition = positionCopier(position);
+                    copyMap = mapCopier(map);
+                    copyQueue = queueCopier(queue);
+                    if (rightPossible(copyMap, copyPosition) == 1)
+                    {
+                        right(copyMap, copyPosition, copyQueue, sentinel);
+                        step = step + 1;
+                        if (step < 15)
+                        {
+                            step = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+                        }
+                        else {
+                            return (step);
+                        }
+                        if (returnedStep < 15)
+                        {
+                            step = step - 1;
+                            copyPosition = positionCopier(position);
+                            copyMap = mapCopier(map);
+                            copyQueue = queueCopier(queue);
+                            if (rightPossible(copyMap, copyPosition) == 1)
+                            {
+                                right(copyMap, copyPosition, copyQueue, sentinel);
+                                step = step + 1;
+                                if (step < 15)
+                                {
+                                    step = leftHandMethod(copyMap, copyPosition, copyQueue, sentinel, step);
+                                }
+                                else {
+                                    return (step);
+                                }
+                                if (returnedStep == 15)
+                                {
+                                    return (returnedStep);
+                                }
+                            }
+                        }
+                        else {
+                            return (returnedStep);
+                        }
+                    }
+                }
+                else {
+                    return (returnedStep);
+                }
+            }
+            else if(rightPossible(copyMap, copyPosition) == 1){
                 right(copyMap, copyPosition, copyQueue, sentinel);
                 step = step + 1;
 			    if(step< 15){
@@ -722,5 +1099,52 @@ public class MapGenerationScript : MonoBehaviour {
 		    }
 	    }
 	    return step;
+    }
+
+    char[,,] mapCopier(char[,,] tempMap){
+        char[,,] copyMap = new char[Constants.maxLength, Constants.maxLength, 2];
+        
+        int i;
+        int j;
+        int k;
+        for (k = 0; k < 2; k++)
+        {
+            for (j = 0; j < Constants.maxLength; j++)
+            {
+                for (i = 0; i < Constants.maxLength; i++)
+                {
+                    copyMap[i, j, k] = tempMap[i, j, k];
+                }
+            }
+        }
+        return copyMap;
+    }
+
+    int[] positionCopier(int[] tempPosition)
+    {
+        int[] copyPosition = new int[5];
+
+        int i;
+        for (i = 0; i < 5; i++)
+        {
+            copyPosition[i] = tempPosition[i];
+        }
+        return copyPosition;
+    }
+
+    int[,] queueCopier(int[,] tempQueue)
+    {
+        int[,] copyQueue = new int[15, 3];
+        int i;
+        int j;
+
+        for (j = 0; j < 3; j++)
+        {
+            for (i = 0; i < 15; i++)
+            {
+                copyQueue[i, j] = tempQueue[i, j];
+            }
+        }
+        return copyQueue;
     }
 }
