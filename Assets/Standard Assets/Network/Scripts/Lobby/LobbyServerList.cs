@@ -55,7 +55,7 @@ namespace UnityStandardAssets.Network
             {
                 GameObject o = Instantiate(serverEntryPrefab) as GameObject;
 
-                o.GetComponent<LobbyServerEntry>().Populate(response.matches[i], lobbyManager, (i%2 == 0) ? OddServerColor : EvenServerColor);
+                o.GetComponent<LobbyServerEntry>().Populate(response.matches[i], lobbyManager, (i % 2 == 0) ? OddServerColor : EvenServerColor);
 
                 o.transform.SetParent(serverListRect, false);
             }

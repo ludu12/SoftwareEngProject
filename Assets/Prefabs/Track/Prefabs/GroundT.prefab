@@ -8,7 +8,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 465782}
-  - 95: {fileID: 9564766}
+  - 65: {fileID: 6554756}
+  - 114: {fileID: 11474804}
   m_Layer: 0
   m_Name: GroundT
   m_TagString: Untagged
@@ -244,6 +245,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0897864, y: 4.145938, z: 17.382877}
   m_Center: {x: 0.00000047683716, y: 1.6076318, z: 0.00000047683716}
+--- !u!65 &6554756
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120142}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 20, z: 20}
+  m_Center: {x: 0, y: 10, z: 0}
 --- !u!65 &6578806
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -256,23 +269,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 17.382877, y: 4.145937, z: 1.0897841}
   m_Center: {x: -0.00000047683716, y: 1.6076323, z: 0.00000035762787}
---- !u!95 &9564766
-Animator:
-  serializedVersion: 3
+--- !u!114 &11474804
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120142}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5a28818c4e5738f4580c278a6406be60, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941393b6b9f2c0d4cbadf5abf28468b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

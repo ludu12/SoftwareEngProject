@@ -13,7 +13,7 @@ public class PlayerSetupTests
     public void OnSetupColor()
     {
         // Arrange
-        PlayerSetupContoller playerSetupController = new PlayerSetupContoller();
+        PlayerSetup playerSetupController = new PlayerSetup();
         var playerSetup = GetPlayerSetupMock();
         playerSetupController.SetNetworkSetup(playerSetup);
         GameObject[] goArray = new GameObject[3];

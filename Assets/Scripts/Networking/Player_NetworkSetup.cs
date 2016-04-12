@@ -35,7 +35,7 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
 	[SerializeField]
 	AudioListener audioListener;
 
-    public PlayerSetupContoller playerSetupContoller;
+    public PlayerSetup playerSetup;
 
     private NetworkClient nClient;
     private int latency;
@@ -43,21 +43,21 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
 
     private void OnEnable()
     {
-        playerSetupContoller = new PlayerSetupContoller();
-        playerSetupContoller.SetNetworkSetup(this);
+        playerSetup = new PlayerSetup();
+        playerSetup.SetNetworkSetup(this);
         // This is messy, but helps with testing..
-        playerSetupContoller.magentaBody = magentaBody;
-        playerSetupContoller.redBody = redBody;
-        playerSetupContoller.cyanBody = cyanBody;
-        playerSetupContoller.blueBody = blueBody;
-        playerSetupContoller.greenBody = greenBody;
-        playerSetupContoller.yellowBody = yellowBody;
-        playerSetupContoller.magentaMirror = magentaMirror;
-        playerSetupContoller.redMirror = redMirror;
-        playerSetupContoller.cyanMirror = cyanMirror;
-        playerSetupContoller.blueMirror = blueMirror;
-        playerSetupContoller.greenMirror = greenMirror;
-        playerSetupContoller.yellowMirror = yellowMirror;
+        playerSetup.magentaBody = magentaBody;
+        playerSetup.redBody = redBody;
+        playerSetup.cyanBody = cyanBody;
+        playerSetup.blueBody = blueBody;
+        playerSetup.greenBody = greenBody;
+        playerSetup.yellowBody = yellowBody;
+        playerSetup.magentaMirror = magentaMirror;
+        playerSetup.redMirror = redMirror;
+        playerSetup.cyanMirror = cyanMirror;
+        playerSetup.blueMirror = blueMirror;
+        playerSetup.greenMirror = greenMirror;
+        playerSetup.yellowMirror = yellowMirror;
     }
 
     // Use this for initialization
@@ -73,7 +73,7 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
         GameObject[] goArray = { body, leftMirror, rightMirror };
 
         // Test this
-        playerSetupContoller.SetUpColor(color, goArray);
+        playerSetup.SetUpColor(color, goArray);
 
         nClient = GameObject.Find("LobbyManager").GetComponent<NetworkLobbyManager>().client;
         latencyText = GameObject.Find("LatencyText").GetComponent<Text>();

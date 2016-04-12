@@ -15,7 +15,9 @@ public class Player_SyncPos : NetworkBehaviour
     Transform myTransform;
 
     private float lerpRate;
+    [SerializeField]
     private float normalLerpRate = 15;
+    [SerializeField]
     private float fasterLerpRate = 25;
 
     private Vector3 lastPos;
