@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using NSubstitute;
 
 [TestFixture]
-[Category("PlayerSetup")]
+[Category("Networking")]
 public class PlayerSetupTests
 {
 

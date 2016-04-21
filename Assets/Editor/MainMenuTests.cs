@@ -20,7 +20,7 @@ public class MainMenuTests
         sceneManager.OnStartButton();
 
         // Assert
-		manager.Received().LoadScene("Game");
+		manager.Received().LoadScene("SinglePlayerSurvival");
     }
 
     [Test]
@@ -45,19 +45,20 @@ public class MainMenuTests
 		// Arrange
 		SceneManagerController sceneManager = new SceneManagerController();
 		var manager = GetManagerMock();
+        manager.GetCurrentScene().Returns("SinglePlayerSurvival");
 		sceneManager.SetSceneManager(manager);
 
 		// Act
 		sceneManager.OnLobbyManagerBackButton();
 
 		// Assert
-		manager.Received().LoadScene("Offline");
+		manager.Received().LoadScene("LobbyScene");
 
     }
 
 
     [Test]
-    public void SplashScreenRedirect()
+    public void SetUpLobbyScene()
     {
 		// Arrange
 		SceneManagerController sceneManager = new SceneManagerController();
@@ -68,8 +69,7 @@ public class MainMenuTests
 		sceneManager.DisplayLobbyScene();
 
 		// Assert
-		manager.Received().LoadScene("MainMenu");
-
+		manager.Received().LoadScene("LobbyScene");
     }
 
 	[Test]

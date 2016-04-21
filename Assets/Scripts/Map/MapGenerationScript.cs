@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,15 @@ public class MapGenerationScript {
     int k;
     int sentinel = 0;
 
-    IMap mapInterface;
+    public GameObject Ground;
+    public GameObject GroundT;
+    public GameObject BridgeU;
+    public GameObject BridgeT;
+    public GameObject BridgeF;
+    public GameObject car;
+
+    IDestroyInstantiate mapInterface;
+    INotificationCenter notificationCenter;
 
     private char[,] myMap = new char[15, 2];
     private char step;
@@ -43,9 +51,18 @@ public class MapGenerationScript {
     /// Set the interface for this humble object
     /// </summary>
     /// <param name="mapInterface"></param>
-    public void SetMapInterface(IMap mapInterface)
+    public void SetMapInterface(IDestroyInstantiate mapInterface)
     {
         this.mapInterface = mapInterface;
+    }
+
+    /// <summary>
+    /// Set the interface for this humble object
+    /// </summary>
+    /// <param name="mapInterface"></param>
+    public void SetNotificationInterface(INotificationCenter notificationCenter)
+    {
+        this.notificationCenter = notificationCenter;
     }
 
     /// <summary>
@@ -57,12 +74,12 @@ public class MapGenerationScript {
         mapQueue = new Queue<GameObject>();
         myMap = initialize();
 
-        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.identity);
+        piece = mapInterface.InstantiateGameObject(Ground,nextLocation, Quaternion.identity);
         mapQueue.Enqueue(piece);
         nextLocation.z += 20;
 
-        direction = (int)myMap[0, 1] - '0';
-        myMap[1, 1] = '0';
+        direction = myMap[0, 1];
+        //myMap[1, 1] = '0';
         for (int i = 1; i < 15; i++)
         {
             if (myMap[i, 0].Equals('S'))
@@ -71,22 +88,22 @@ public class MapGenerationScript {
                 {
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                        piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
                         nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                        piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
                         nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                        piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
                         nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                        piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
                         nextLocation.x -= 20;
                     }
                 }
@@ -94,22 +111,22 @@ public class MapGenerationScript {
                 {
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
                         nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeF,nextLocation, Quaternion.Euler(0, 90, 0));
                         nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
                         nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeF, nextLocation, Quaternion.Euler(0, 90, 0));
                         nextLocation.x -= 20;
                     }
                 }
@@ -121,22 +138,22 @@ public class MapGenerationScript {
                     nextLocation.y = (float)bridgeSpawnHeight;
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
                         nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
                         nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
                         nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
                         nextLocation.x -= 20;
                     }
                     nextLocation.y = (float)bridgeSpawnHeight * 2;
@@ -146,22 +163,22 @@ public class MapGenerationScript {
                     nextLocation.y = (float)bridgeSpawnHeight;
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
                         nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
                         nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
                         nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                        piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
                         nextLocation.x -= 20;
                     }
                     nextLocation.y = 0;
@@ -173,49 +190,49 @@ public class MapGenerationScript {
                 {
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
-                        nextLocation.x += 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
-                        nextLocation.z -= 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
-                        nextLocation.x -= 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
-                        nextLocation.z += 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
                     }
                 }
                 else
                 {
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
-                        nextLocation.x += 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
-                        nextLocation.z -= 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
-                        nextLocation.x -= 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
-                        nextLocation.z += 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.x -= 20;
                     }
                 }
-                direction = (int)myMap[i, 1] - '0';
+                direction = myMap[i, 1];
             }
             else if (myMap[i, 0].Equals('L'))
             {
@@ -223,52 +240,54 @@ public class MapGenerationScript {
                 {
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
-                        nextLocation.x -= 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
-                        nextLocation.z += 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
-                        nextLocation.x += 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
-                        nextLocation.z -= 20;
+                        piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
                     }
                 }
                 else
                 {
                     if (myMap[i, 1].Equals('0'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
-                        nextLocation.x -= 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
+                        nextLocation.z += 20;
                     }
                     else if (myMap[i, 1].Equals('1'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
-                        nextLocation.z += 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
+                        nextLocation.x += 20;
                     }
                     else if (myMap[i, 1].Equals('2'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
-                        nextLocation.x += 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
+                        nextLocation.z -= 20;
                     }
                     else if (myMap[i, 1].Equals('3'))
                     {
-                        piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
-                        nextLocation.z -= 20;
+                        piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
+                        nextLocation.x -= 20;
                     }
                 }
-                direction = (int)myMap[i, 1] - '0';
+                direction = myMap[i, 1];
             }
             mapQueue.Enqueue(piece);
         }
+
+        notificationCenter.PostNotification("OnMapChange", mapQueue.ToArray()[7]); // return the middle game object
     }
 
     /// <summary>
@@ -285,22 +304,22 @@ public class MapGenerationScript {
             {
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateGround(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(Ground, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.x -= 20;
                 }
             }
@@ -308,22 +327,22 @@ public class MapGenerationScript {
             {
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeF, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeF, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateBridgeF(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeF, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.x -= 20;
                 }
             }
@@ -336,22 +355,22 @@ public class MapGenerationScript {
                 nextLocation.y = (float)bridgeSpawnHeight;
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
                     nextLocation.x -= 20;
                 }
                 nextLocation.y = (float)bridgeSpawnHeight * 2;
@@ -361,22 +380,22 @@ public class MapGenerationScript {
                 nextLocation.y = (float)bridgeSpawnHeight;
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 0, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 90, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 180, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 180, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateBridgeU(nextLocation, Quaternion.Euler(20, 270, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeU, nextLocation, Quaternion.Euler(20, 270, 0));
                     nextLocation.x -= 20;
                 }
                 nextLocation.y = 0;
@@ -388,22 +407,22 @@ public class MapGenerationScript {
             {
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
                     nextLocation.x -= 20;
                 }
             }
@@ -411,22 +430,22 @@ public class MapGenerationScript {
             {
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
                     nextLocation.x -= 20;
                 }
             }
@@ -437,22 +456,22 @@ public class MapGenerationScript {
             {
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 180, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 270, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateGroundT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(GroundT, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.x -= 20;
                 }
             }
@@ -460,28 +479,29 @@ public class MapGenerationScript {
             {
                 if (direction == 0)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 180, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 180, 0));
                     nextLocation.z += 20;
                 }
                 else if (direction == 1)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 270, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 270, 0));
                     nextLocation.x += 20;
                 }
                 else if (direction == 2)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 0, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 0, 0));
                     nextLocation.z -= 20;
                 }
                 else if (direction == 3)
                 {
-                    piece = mapInterface.InstantiateBridgeT(nextLocation, Quaternion.Euler(0, 90, 0));
+                    piece = mapInterface.InstantiateGameObject(BridgeT, nextLocation, Quaternion.Euler(0, 90, 0));
                     nextLocation.x -= 20;
                 }
             }
         }
         mapQueue.Enqueue(piece);
         mapInterface.DestroyThis(mapQueue.Dequeue());
+        notificationCenter.PostNotification("OnMapChange", mapQueue.ToArray()[7]); // return the middle game object
     }
 
     /// <summary>
@@ -491,20 +511,18 @@ public class MapGenerationScript {
     /// <returns></returns>
     public bool isFrontPiece(GameObject piece)
     {
-        Debug.Log(mapQueue.ToArray().ToList().IndexOf(piece));
-
         if (mapQueue.ToArray().ToList().IndexOf(piece) > 10)
             return true;
         else
             return false;
     }
 
-    public int getDirection()
+    int getDirection()
     {
         return (position[2]);
     }
 
-    public char[,] initialize()
+    char[,] initialize()
     {
         Random.seed = (int)System.DateTime.Now.Ticks;
         int i;
@@ -524,14 +542,16 @@ public class MapGenerationScript {
         move[0, 1] = position[2].ToString()[0];
         straight(map, position, queue, sentinel);
         sentinel = 1;
-        while (sentinel< 14){
-		    move[sentinel,0] = mapStep();
-            move[sentinel,1] = position[2].ToString()[0];
+        
+        for(int z = 1; z < 15; z++)
+        { 
+		    move[z,0] = mapStep();
+            move[z,1] = position[2].ToString()[0];
         }
         return (move);
     }
 
-    public char mapStep()
+    char mapStep()
     {
         int nextVal = 0;
         char step = '*';

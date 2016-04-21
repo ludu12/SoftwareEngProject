@@ -5,6 +5,7 @@ using NSubstitute;
 
 
 [TestFixture]
+[Category("Camera")]
 public class CameraShiftTest : MonoBehaviour
 {
     Vector3 localPosition;
@@ -16,12 +17,12 @@ public class CameraShiftTest : MonoBehaviour
     Vector3 firstPersonPos;
     Vector3 firstPersonRot;
 
-    CameraController camera;
+    SwitchCamera camera;
 
     [Test]
     public void initializeValues()
     {
-        camera = new CameraController();
+        camera = new SwitchCamera();
         var cam = GetCamMock();
         camera.SetCameraController(cam);
 
@@ -45,7 +46,7 @@ public class CameraShiftTest : MonoBehaviour
 
     [Test]
     public void lookBack(){
-        camera = new CameraController();
+        camera = new SwitchCamera();
         var cam = GetCamMock();
         camera.SetCameraController(cam);
 
@@ -62,7 +63,7 @@ public class CameraShiftTest : MonoBehaviour
     [Test]
     public void putBackCameraWhenInFirstPerson()
     {
-        camera = new CameraController();
+        camera = new SwitchCamera();
         var cam = GetCamMock();
         camera.SetCameraController(cam);
 
@@ -78,7 +79,7 @@ public class CameraShiftTest : MonoBehaviour
     [Test]
     public void putBackCameraWhenInThirdPerson()
     {
-        camera = new CameraController();
+        camera = new SwitchCamera();
         var cam = GetCamMock();
         camera.SetCameraController(cam);
 
@@ -93,7 +94,7 @@ public class CameraShiftTest : MonoBehaviour
 
     [Test]
     public void toggleCameraWhenInFirstPerson(){
-        camera = new CameraController();
+        camera = new SwitchCamera();
         var cam = GetCamMock();
         camera.SetCameraController(cam);
 
@@ -109,7 +110,7 @@ public class CameraShiftTest : MonoBehaviour
     public void toggleCameraWhenInThirdPerson()
     {
         
-        camera = new CameraController();
+        camera = new SwitchCamera();
         var cam = GetCamMock();
         camera.SetCameraController(cam);
 
@@ -143,7 +144,7 @@ public class CameraShiftTest : MonoBehaviour
 
         //set first person
         firstPersonPos = localPosition;
-        firstPersonPos.z += 3.5f;
+        firstPersonPos.z += 4.3f;
         firstPersonPos.y -= camera.drop;
         firstPersonRot = localRotation.eulerAngles;
     }

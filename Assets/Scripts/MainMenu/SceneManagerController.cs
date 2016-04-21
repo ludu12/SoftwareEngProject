@@ -34,8 +34,8 @@ public class SceneManagerController {
 		sceneManagerController.Quit();
 	}
 
-	// display menu after 3 seconds 
-	public void DisplayLobbyScene()
+    // display lobby scene
+    public void DisplayLobbyScene()
 	{
 		sceneManagerController.LoadScene("LobbyScene");
 	}

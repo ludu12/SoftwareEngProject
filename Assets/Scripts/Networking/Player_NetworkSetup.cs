@@ -67,7 +67,7 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
             GetComponent<UnityStandardAssets.Vehicles.Car.CarUserControl>().enabled = true;
 
             carCam.enabled = true;
-			carCam.GetComponent<SwitchCamera>().enabled = true;
+			carCam.GetComponent<SwitchCameraController>().enabled = true;
 			audioListener.enabled = true;
 		}
         GameObject[] goArray = { body, leftMirror, rightMirror };

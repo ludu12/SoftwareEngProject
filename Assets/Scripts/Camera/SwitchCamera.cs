@@ -1,46 +1,81 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
-public class SwitchCamera : MonoBehaviour, ICamController
-{
-    public CameraController cameraController;
+public class SwitchCamera {
 
-    private void OnEnable()
+    public Vector3 lookForwardPos;
+    public Vector3 lookForwardRot;
+
+    public Vector3 lookBackPos;
+    public Vector3 lookBackRot;
+
+    public bool fperson = false;
+    public Vector3 firstPersonPos;
+    public Vector3 firstPersonRot;
+
+    public float distance = 6.3f;
+    public float drop = 0.9f;
+    public float fpdistance = 4.3f;
+
+    private ICamController camController;
+
+    public void assignStartValues(Vector3 localPosition, Quaternion localRotation)
     {
-        cameraController = new CameraController();
-        cameraController.SetCameraController(this);
-        cameraController.assignStartValues(this.transform.localPosition, this.transform.localRotation);
+
+        //set lookforward
+        lookForwardPos = localPosition;
+        lookForwardRot = localRotation.eulerAngles;
+
+        //set lookback
+        lookBackPos = localPosition;
+        lookBackPos.z = lookBackPos.z + distance;
+        lookBackRot = localRotation.eulerAngles;
+        lookBackRot.y = lookBackRot.y + 180;
+
+        //set first person
+        fperson = false;
+        firstPersonPos = localPosition;
+        firstPersonPos.z += fpdistance;
+        firstPersonPos.y -= drop;
+        firstPersonRot = localRotation.eulerAngles;
     }
 
-    // Update is called once per frame
-    void Update()
+    //alternates between first and third person view
+    public void leftAltkey()
     {
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        if (fperson)
         {
-            cameraController.leftAltkey();
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            cameraController.leftShiftkey();
+            fperson = false;
         }
         else {
-            cameraController.putBackCamera();
+            fperson = true;
         }
     }
 
-    #region implementation
-
-    public void SetPosition(Vector3 newPosition)
+    //moves position and rotation to lookBack values
+    public void leftShiftkey()
     {
-        this.transform.localPosition = newPosition;
+        camController.SetPosition(lookBackPos);
+        camController.SetRotation(lookBackRot);
     }
 
-    public void SetRotation(Vector3 eulerAngle)
+    public void putBackCamera()
     {
-        this.transform.localRotation = Quaternion.Euler(eulerAngle);
+        if (fperson)
+        {
+            camController.SetPosition(firstPersonPos);
+            camController.SetRotation(firstPersonRot);
+        }
+        else {
+            camController.SetPosition(lookForwardPos);
+            camController.SetRotation(lookForwardRot);
+        }
     }
 
-    #endregion
+    // set movement controller
+    public void SetCameraController(ICamController camController)
+    {
+        this.camController = camController;
+    }
+
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
 
-public class SplashScreenManager : MonoBehaviour, ISceneManagerController{
+public class MySceneManager : MonoBehaviour, ISceneManagerController{
 
     private SceneManagerController sceneManager;
 
@@ -16,7 +16,6 @@ public class SplashScreenManager : MonoBehaviour, ISceneManagerController{
     // Use this for initialization
     void Start () {
         sceneManager.DisplayLobbyScene();
-        //StartCoroutine("WaitAndCallDisplayMenu");
 	}
 
     // call ienumerator for delay
