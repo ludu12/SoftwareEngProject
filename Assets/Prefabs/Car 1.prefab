@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_SpeedType: 0
   m_Topspeed: 100
   m_RevRangeBoundary: 1
-  m_SlipLimit: 0.3
+  m_SlipLimit: 0.2
   m_BrakeTorque: 20000
 --- !u!114 &11497864
 MonoBehaviour:
@@ -3011,7 +3011,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SlipLimit
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 104302}
