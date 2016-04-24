@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Downforce: 100
   m_Topspeed: 100
   m_RevRangeBoundary: 1
-  m_SlipLimit: 0.3
+  m_SlipLimit: 0.2
   m_BrakeTorque: 20000
   lowAccelClip: {fileID: 8300000, guid: 73b44978993fac443993e089d0e005da, type: 3}
   lowDecelClip: {fileID: 8300000, guid: 5339926fe5178e84d8e8bf4e1b75bf0b, type: 3}
@@ -2980,7 +2980,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SlipLimit
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 104302}
