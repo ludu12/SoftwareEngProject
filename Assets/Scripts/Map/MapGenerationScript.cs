@@ -18,10 +18,10 @@ public class MapGenerationScript {
     * 2 = direction
     * 3 = count flag for first loop
     * 4 = level
+    * 5 = last move = c flag
     */
-    int[] position = { 9, 19, 0, 0, 0 };
+    int[] position = { 9, 19, 0, 0, 0, 0 };
     int[,] queue = new int[15, 3];
-    char lastMove;
 
     int i;
     int j;
@@ -789,6 +789,7 @@ public class MapGenerationScript {
                                 sentinel++;
                             }
                             step = 'L';
+                            position[5] = 0;
                         }
                     }
                     break;
@@ -803,6 +804,7 @@ public class MapGenerationScript {
                                 sentinel++;
                             }
                             step = 'S';
+                            position[5] = 0;
                         }
                     }
                     break;
@@ -817,6 +819,7 @@ public class MapGenerationScript {
                                 sentinel++;
                             }
                             step = 'C';
+                            position[5] = 1;
                         }
                     }
                     break;
@@ -831,12 +834,12 @@ public class MapGenerationScript {
                                 sentinel++;
                             }
                             step = 'R';
+                            position[5] = 0;
                         }
                     }
                     break;
             }
         }
-        lastMove = step;
         return (step);
     }
 
@@ -1188,7 +1191,7 @@ public class MapGenerationScript {
     {
         int flag = 0;
         int otherLevel = 0;
-        if (!(lastMove.Equals('C'))){
+        if (position[5] == 0){
             switch (position[4])
             {
                 case 0:
@@ -1289,7 +1292,7 @@ public class MapGenerationScript {
     int leftLeft(char[,,] map, int[] position, int[,] queue, int sentinel)
     {
         char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
-	    int[] copyPosition = new int[5];
+	    int[] copyPosition = new int[6];
         int[,] copyQueue = new int[15,3];
 	
 	    int step = 1;
@@ -1307,7 +1310,7 @@ public class MapGenerationScript {
     int straightLeft(char[,,] map, int[] position, int[,] queue, int sentinel)
     {
         char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
-	    int[] copyPosition = new int[5];
+	    int[] copyPosition = new int[6];
         int[,] copyQueue = new int[15,3];
 	
 	    int step = 1;
@@ -1325,7 +1328,7 @@ public class MapGenerationScript {
     int levelChangeLeft(char[,,] map, int[] position, int[,] queue, int sentinel)
     {
         char[,,] copyMap = new char[Constants.maxLength, Constants.maxLength, 2];
-        int[] copyPosition = new int[5];
+        int[] copyPosition = new int[6];
         int[,] copyQueue = new int[15, 3];
 
         int step = 1;
@@ -1343,7 +1346,7 @@ public class MapGenerationScript {
     int rightLeft(char[,,] map, int[] position, int[,] queue, int sentinel)
     {
         char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
-	    int[] copyPosition = new int[5];
+	    int[] copyPosition = new int[6];
         int[,] copyQueue = new int[15,3];
 	
 	    int step = 1;
@@ -1363,7 +1366,7 @@ public class MapGenerationScript {
         if (sentinel < 15)
         {
             char[,,] copyMap = new char[Constants.maxLength,Constants.maxLength,2];
-		    int[] copyPosition = new int[5];
+		    int[] copyPosition = new int[6];
             int[,] copyQueue = new int[15,3];
 		    int returnedStep;
             
@@ -1613,10 +1616,10 @@ public class MapGenerationScript {
 
     int[] positionCopier(int[] tempPosition)
     {
-        int[] copyPosition = new int[5];
+        int[] copyPosition = new int[6];
 
         int i;
-        for (i = 0; i < 5; i++)
+        for (i = 0; i < 6; i++)
         {
             copyPosition[i] = tempPosition[i];
         }
