@@ -1,22 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Networking;
 
 public class OverHeadCameraController : MonoBehaviour, ICamController {
 
-    Transform target;
+    public Transform target;
     public GameObject popUpDisplay;
 
 	// Use this for initialization
-	IEnumerator Start () {
-        NotificationCenter.DefaultCenter().AddObserver(this, "OnPlayerDeath");
-
-        while(target == null)
-        {
-            if(GameObject.FindGameObjectWithTag("Player") != null)
-                target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-            yield return null;
-        }
+	void Start () {
+        //NotificationCenter.DefaultCenter().AddObserver(this, "OnPlayerDeath");
 	}
 	
 	// Update is called once per frame
@@ -44,7 +38,7 @@ public class OverHeadCameraController : MonoBehaviour, ICamController {
         Vector3 newPosition = new Vector3();
         newPosition.Set(target.transform.position.x, 200, target.transform.position.z);
         SetPosition(newPosition);
-        SetRotation(new Vector3(90,0,0));
+        SetRotation(new Vector3(90, 0, 0));
     }
 
     void OnDestroy()

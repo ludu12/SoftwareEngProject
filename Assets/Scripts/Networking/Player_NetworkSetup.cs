@@ -62,21 +62,21 @@ public class Player_NetworkSetup : NetworkBehaviour, IPlayerSetup {
 
     // Use this for initialization
     void Start () {
-		if (isLocalPlayer) {
-			GetComponent<UnityStandardAssets.Vehicles.Car.CarController>().enabled = true;
-            GetComponent<UnityStandardAssets.Vehicles.Car.CarUserControl>().enabled = true;
+
+        if (isLocalPlayer)
+        {
+            this.tag = "MyPlayer"; // change tag so that we know what player is our local player
+            GetComponent<CarController>().enabled = true;
 
             carCam.enabled = true;
-			carCam.GetComponent<SwitchCameraController>().enabled = true;
-			audioListener.enabled = true;
-		}
+            carCam.GetComponent<SwitchCameraController>().enabled = true;
+            audioListener.enabled = true;
+
+            nClient = GameObject.Find("LobbyManager").GetComponent<NetworkLobbyManager>().client;
+            latencyText = GameObject.Find("LatencyText").GetComponent<Text>();
+        }
         GameObject[] goArray = { body, leftMirror, rightMirror };
-
-        // Test this
         playerSetup.SetUpColor(color, goArray);
-
-        nClient = GameObject.Find("LobbyManager").GetComponent<NetworkLobbyManager>().client;
-        latencyText = GameObject.Find("LatencyText").GetComponent<Text>();
     }
 
     void Update()

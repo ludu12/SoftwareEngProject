@@ -88,7 +88,6 @@ public class SinglePlayer {
     /// <returns></returns>
     public bool IsFacingCorrectWay(Vector2 mapDirection, Vector2 myDireciton)
     {
-        Debug.Log(Vector3.Angle(mapDirection, myDireciton));
 
         if (Vector3.Angle(mapDirection, myDireciton) < 150)
             return true;

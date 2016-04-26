@@ -76,16 +76,14 @@ GameObject:
   m_Component:
   - 4: {fileID: 461574}
   - 54: {fileID: 5499094}
-  - 114: {fileID: 11478582}
-  - 114: {fileID: 11494642}
-  - 114: {fileID: 11412532}
   - 114: {fileID: 11415254}
-  - 114: {fileID: 11494626}
   - 114: {fileID: 11440776}
+  - 114: {fileID: 11494626}
   - 114: {fileID: 11472120}
+  - 114: {fileID: 11423538}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,7 +248,7 @@ GameObject:
   - 124: {fileID: 12459896}
   - 92: {fileID: 9206966}
   - 81: {fileID: 8113824}
-  - 114: {fileID: 11484948}
+  - 114: {fileID: 11469428}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1269,30 +1267,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
   skidParticles: {fileID: 19827986}
---- !u!114 &11412532
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 132014}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20fa55eb64c5cea4aa3c71ae19c434bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  engineSoundStyle: 1
-  lowAccelClip: {fileID: 8300000, guid: c4d8928c75c21af43998193f0f038429, type: 3}
-  lowDecelClip: {fileID: 8300000, guid: 5699dddcce16c4543b95951c4ce0e092, type: 3}
-  highAccelClip: {fileID: 8300000, guid: 03e3bd08a6e70684dbe299a3e185fdd2, type: 3}
-  highDecelClip: {fileID: 8300000, guid: 03bf91d88fce91c41995d27de63cc967, type: 3}
-  pitchMultiplier: 0.8
-  lowPitchMin: 1
-  lowPitchMax: 5
-  highPitchMultiplier: 0.25
-  maxRolloffDistance: 500
-  dopplerLevel: 1
-  useDoppler: 1
-  cam: {fileID: 0}
 --- !u!114 &11415254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1325,6 +1299,53 @@ MonoBehaviour:
     i15: 207
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &11423538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132014}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0feb94907afde9d458185a78f19772b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WheelColliders:
+  - {fileID: 14670212}
+  - {fileID: 14606478}
+  - {fileID: 14627890}
+  - {fileID: 14625504}
+  m_WheelMeshes:
+  - {fileID: 168854}
+  - {fileID: 139814}
+  - {fileID: 155072}
+  - {fileID: 142084}
+  m_WheelEffects:
+  - {fileID: 11400344}
+  - {fileID: 11453672}
+  - {fileID: 11432564}
+  - {fileID: 11492474}
+  m_CentreOfMassOffset: {x: 0, y: 0, z: 0}
+  m_MaximumSteerAngle: 25
+  m_SteerHelper: 0.7
+  m_TractionControl: 1
+  m_FullTorqueOverAllWheels: 2500
+  m_ReverseTorque: 500
+  m_MaxHandbrakeTorque: 100000000
+  m_Downforce: 100
+  m_Topspeed: 100
+  m_RevRangeBoundary: 1
+  m_SlipLimit: 0.3
+  m_BrakeTorque: 20000
+  canMove: 1
+  lowAccelClip: {fileID: 8300000, guid: 73b44978993fac443993e089d0e005da, type: 3}
+  lowDecelClip: {fileID: 8300000, guid: 5339926fe5178e84d8e8bf4e1b75bf0b, type: 3}
+  highAccelClip: {fileID: 8300000, guid: 3e5dd35caf0f3504fae6a25397d4d50c, type: 3}
+  highDecelClip: {fileID: 8300000, guid: 06bf579b26772004da10f6fa5fafee8d, type: 3}
+  pitchMultiplier: 0.8
+  lowPitchMin: 1
+  lowPitchMax: 5
+  highPitchMultiplier: 0.25
 --- !u!114 &11432564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1371,6 +1392,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
   skidParticles: {fileID: 19827986}
+--- !u!114 &11469428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165218}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ca256f7821c0f4da455e86bea1e7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11472120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1384,57 +1416,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidbody: {fileID: 5499094}
   useHistoricalLerping: 0
---- !u!114 &11478582
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 132014}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea65b38d485c374caa584a03f1de571, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CarDriveType: 2
-  m_WheelColliders:
-  - {fileID: 14606478}
-  - {fileID: 14670212}
-  - {fileID: 14625504}
-  - {fileID: 14627890}
-  m_WheelMeshes:
-  - {fileID: 139814}
-  - {fileID: 168854}
-  - {fileID: 142084}
-  - {fileID: 155072}
-  m_WheelEffects:
-  - {fileID: 11453672}
-  - {fileID: 11400344}
-  - {fileID: 11492474}
-  - {fileID: 11432564}
-  m_CentreOfMassOffset: {x: 0, y: 0, z: 0}
-  m_MaximumSteerAngle: 25
-  m_SteerHelper: 0.644
-  m_TractionControl: 1
-  m_FullTorqueOverAllWheels: 2500
-  m_ReverseTorque: 500
-  m_MaxHandbrakeTorque: 100000000
-  m_Downforce: 100
-  m_SpeedType: 0
-  m_Topspeed: 100
-  m_RevRangeBoundary: 1
-  m_SlipLimit: 0.3
-  m_BrakeTorque: 20000
---- !u!114 &11484948
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165218}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c5b9ca4532eb943946b1f8542fd73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11492474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1478,17 +1459,6 @@ MonoBehaviour:
   yellowMirror: {fileID: 2100000, guid: 7db06adb5e4e5424e9fa4a045c66eeb5, type: 2}
   carCam: {fileID: 2072504}
   audioListener: {fileID: 8113824}
---- !u!114 &11494642
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 132014}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96468c245ae8e0d4f8f1c7a7b8b0542e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!124 &12459896
 Behaviour:
   m_ObjectHideFlags: 1

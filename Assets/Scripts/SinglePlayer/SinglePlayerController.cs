@@ -17,6 +17,8 @@ public class SinglePlayerController : MonoBehaviour, INotificationCenter {
     // Use this for initialization
     IEnumerator Start () {
 
+        GameObject.Find("OverHeadCamera").GetComponent<OverHeadCameraController>().target = this.transform;
+
         if (GameObject.Find("Message") != null)
             messageText = GameObject.Find("Message").GetComponent<Text>();
 

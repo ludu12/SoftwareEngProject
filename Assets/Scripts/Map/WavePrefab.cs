@@ -8,7 +8,6 @@ public class WavePrefab : MonoBehaviour {
     {
         Debug.Log(col.transform.root.gameObject + " hit wave");
         Destroy(col.transform.root.gameObject);
-        GameObject.Find("Message").GetComponent<Text>().text = "GAME OVER";
         NotificationCenter.DefaultCenter().PostNotification(this, "OnPlayerDeath");
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class CarController : MonoBehaviour, ICarMovementController, ICarAudioController
@@ -251,5 +252,6 @@ public class CarController : MonoBehaviour, ICarMovementController, ICarAudioCon
     void OnDestory()
     {
         m_Car.StopSound();
+        GameObject.Find("Message").GetComponent<Text>().text = "GAME OVER";
     }
 }

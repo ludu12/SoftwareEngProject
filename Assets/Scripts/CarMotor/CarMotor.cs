@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CarMotor : MonoBehaviour
+public class CarMotor
 {
     // CAR STUFF SET BY CONTROLLER
     private Vector3 m_CentreOfMassOffset;

@@ -33,7 +33,6 @@ public class MapGenerationScript {
     public GameObject BridgeU;
     public GameObject BridgeT;
     public GameObject BridgeF;
-    public GameObject car;
 
     IDestroyInstantiate mapInterface;
     INotificationCenter notificationCenter;
@@ -68,14 +67,13 @@ public class MapGenerationScript {
     /// <summary>
     /// Call this method in the mono script to initialize the map, then parse through and instantiate the prefabs
     /// </summary>
-    public void Start()
+    public void Start(GameObject startPiece)
     {
         nextLocation = new Vector3(0, 0, 0);
         mapQueue = new Queue<GameObject>();
         myMap = initialize();
 
-        piece = mapInterface.InstantiateGameObject(Ground,nextLocation, Quaternion.identity);
-        mapQueue.Enqueue(piece);
+        mapQueue.Enqueue(startPiece);
         nextLocation.z += 20;
 
         direction = myMap[0, 1];
@@ -286,8 +284,6 @@ public class MapGenerationScript {
             }
             mapQueue.Enqueue(piece);
         }
-
-        notificationCenter.PostNotification("OnMapChange", mapQueue.ToArray()[7]); // return the middle game object
     }
 
     /// <summary>
@@ -501,7 +497,6 @@ public class MapGenerationScript {
         }
         mapQueue.Enqueue(piece);
         mapInterface.DestroyThis(mapQueue.Dequeue());
-        notificationCenter.PostNotification("OnMapChange", mapQueue.ToArray()[7]); // return the middle game object
     }
 
     /// <summary>
@@ -511,6 +506,7 @@ public class MapGenerationScript {
     /// <returns></returns>
     public bool isFrontPiece(GameObject piece)
     {
+        Debug.Log("In map script, piece index: " + mapQueue.ToArray().ToList().IndexOf(piece));
         if (mapQueue.ToArray().ToList().IndexOf(piece) > 10)
             return true;
         else

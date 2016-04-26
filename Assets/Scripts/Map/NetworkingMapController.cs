@@ -16,60 +16,35 @@ public class NetworkingMapController : NetworkBehaviour, IDestroyInstantiate, IN
     public GameObject BridgeF;
     public GameObject car;
 
-    private bool userGenerated = false;
+    public GameObject startPiece;
 
-    public float waitTime = 2f;
-
-    // Use this for initialization
     void Start()
     {
-        mapGenerator = new MapGenerationScript();
-        mapGenerator.SetMapInterface(this);
-        mapGenerator.SetNotificationInterface(this);
-        mapGenerator.Ground = Ground;
-        mapGenerator.GroundT = GroundT;
-        mapGenerator.BridgeF = BridgeF;
-        mapGenerator.BridgeT = BridgeT;
-        mapGenerator.BridgeU = BridgeU;
-        mapGenerator.Start();
-
         NotificationCenter.DefaultCenter().AddObserver(this, "UserGenerateMapPiece");
-        NotificationCenter.DefaultCenter().AddObserver(this, "IncreaseLevel");
-
-        if (!_debugging)
-            StartCoroutine(GenerateMapPiece());
-        Instantiate(car, new Vector3(0, 0.25f, 0), Quaternion.identity);
-    }
-
-    void IncreaseLevel()
-    {
-        waitTime = Mathf.Clamp(waitTime - 0.1f, 0.5f, 2f);
-        Debug.Log("NEW LEVEL!");
-    }
-
-    IEnumerator GenerateMapPiece()
-    {
-        yield return new WaitForSeconds(10f);
-        while (true)
+        if (isServer)
         {
-            if (userGenerated)
-            {
-                userGenerated = false;
-                yield return new WaitForSeconds(waitTime);
-            }
-
-            mapGenerator.GenerateMapPiece();
-            yield return new WaitForSeconds(waitTime);
+            mapGenerator = new MapGenerationScript();
+            mapGenerator.SetMapInterface(this);
+            mapGenerator.SetNotificationInterface(this);
+            mapGenerator.Ground = Ground;
+            mapGenerator.GroundT = GroundT;
+            mapGenerator.BridgeF = BridgeF;
+            mapGenerator.BridgeT = BridgeT;
+            mapGenerator.BridgeU = BridgeU;
+            mapGenerator.Start(startPiece);
         }
     }
 
-    void UserGenerateMapPiece(Notification data)
+    public void UserGenerateMapPiece(Notification data)
     {
-        GameObject piece = (GameObject)data.data;
+        CmdUserGenerateMapPiece((GameObject)data.data);
+    }
+
+    [Command]
+    void CmdUserGenerateMapPiece(GameObject piece)
+    {
         if (mapGenerator.isFrontPiece(piece))
         {
-            Debug.Log("User Generated a new piece");
-            userGenerated = true;
             mapGenerator.GenerateMapPiece();
         }
     }
@@ -77,22 +52,26 @@ public class NetworkingMapController : NetworkBehaviour, IDestroyInstantiate, IN
     void OnDestroy()
     {
         NotificationCenter.DefaultCenter().RemoveObserver(this, "UserGenerateMapPiece");
-        NotificationCenter.DefaultCenter().RemoveObserver(this, "IncreaseLevel");
     }
 
     #region Destroy and Instatiate interface implementation
 
     public void DestroyThis(GameObject go)
     {
-        Destroy(go);
+        NetworkServer.Destroy(go);
     }
 
     private Vector2 _previousPosition = new Vector3(0, 0);
+    int i = 0;
     public GameObject InstantiateGameObject(GameObject go, Vector3 startingPos, Quaternion startingRot)
     {
+        Debug.Log(startingRot);
         GameObject piece = (GameObject)Instantiate(go, startingPos, startingRot);
-        piece.GetComponent<MapPrefab>().previousPosition = _previousPosition;
+        piece.name = ((i++) % 15).ToString();
+        piece.GetComponent<NetworkingMapPrefab>().rotation = startingRot;
+        piece.GetComponent<NetworkingMapPrefab>().previousPosition = _previousPosition;
         _previousPosition.Set(startingPos.x, startingPos.z);
+        NetworkServer.Spawn(piece);
         return piece;
     }
     #endregion

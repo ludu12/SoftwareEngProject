@@ -85,6 +85,48 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &181572657
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 416806, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &250171726
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +366,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 731481288}
+--- !u!1 &802292823 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 149796, guid: d51b3c77193dde54eab516d4e892dc76, type: 2}
+  m_PrefabInternal: {fileID: 181572657}
 --- !u!1 &1065347066
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +626,7 @@ GameObject:
   - 92: {fileID: 1341932827}
   - 114: {fileID: 1341932826}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: OverHeadCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,6 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18072636beab3bf47a5805d29b943b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   popUpDisplay: {fileID: 2115884169}
 --- !u!92 &1341932827
 Behaviour:
@@ -689,7 +736,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 80}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1373428480
@@ -704,7 +751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.19607843, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -765,6 +812,7 @@ MonoBehaviour:
   BridgeT: {fileID: 142256, guid: 0f8660828d809594199f9b19a80795dd, type: 2}
   BridgeF: {fileID: 162216, guid: 2d9ddbe1bdf65854c9fcad45f8cfd9f4, type: 2}
   car: {fileID: 113322, guid: 805dadfdd162f4a48a5db68084e10f39, type: 2}
+  startPiece: {fileID: 802292823}
   waitTime: 2
 --- !u!4 &1541302510
 Transform:

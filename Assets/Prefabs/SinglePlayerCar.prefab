@@ -61,7 +61,7 @@ GameObject:
   - 114: {fileID: 11443164}
   m_Layer: 0
   m_Name: SinglePlayerCar
-  m_TagString: Player
+  m_TagString: MyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -302,7 +302,7 @@ GameObject:
   - 124: {fileID: 12405690}
   - 92: {fileID: 9283676}
   - 81: {fileID: 8185020}
-  - 114: {fileID: 11482208}
+  - 114: {fileID: 11424356}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1298,6 +1298,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
   skidParticles: {fileID: 0}
+--- !u!114 &11424356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ca256f7821c0f4da455e86bea1e7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11427928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1380,17 +1391,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f793f1188bccd75489e6c00bd72d5bf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11482208
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c5b9ca4532eb943946b1f8542fd73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!124 &12405690
@@ -3002,7 +3002,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SteerHelper
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_MaximumSteerAngle
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113322}

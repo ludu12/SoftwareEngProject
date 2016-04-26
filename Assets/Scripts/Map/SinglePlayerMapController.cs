@@ -17,6 +17,8 @@ public class SinglePlayerMapController : MonoBehaviour, IDestroyInstantiate, INo
     public GameObject BridgeF;
     public GameObject car;
 
+    public GameObject startPiece;
+
     private bool userGenerated = false;
 
     public float waitTime = 2f;
@@ -31,7 +33,7 @@ public class SinglePlayerMapController : MonoBehaviour, IDestroyInstantiate, INo
         mapGenerator.BridgeF = BridgeF;
         mapGenerator.BridgeT = BridgeT;
         mapGenerator.BridgeU = BridgeU;
-        mapGenerator.Start();
+        mapGenerator.Start(startPiece);
 
         NotificationCenter.DefaultCenter().AddObserver(this, "UserGenerateMapPiece");
         NotificationCenter.DefaultCenter().AddObserver(this, "IncreaseLevel");
@@ -88,9 +90,11 @@ public class SinglePlayerMapController : MonoBehaviour, IDestroyInstantiate, INo
     }
 
     private Vector2 _previousPosition = new Vector3(0,0);
+    int i = 0;
     public GameObject InstantiateGameObject(GameObject go, Vector3 startingPos, Quaternion startingRot)
     {
         GameObject piece = (GameObject)Instantiate(go, startingPos, startingRot);
+        piece.name = ((i++) % 15).ToString();
         piece.GetComponent<MapPrefab>().previousPosition = _previousPosition;
         _previousPosition.Set(startingPos.x, startingPos.z);
         return piece;

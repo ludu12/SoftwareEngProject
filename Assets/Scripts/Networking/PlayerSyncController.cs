@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class PlayerSyncController : NetworkBehaviour, IPlayerSync {
 
     [SyncVar(hook = "SyncPositionValues")]
-    private Vector3 syncPos; // automatically sends this to all clients
+    private Vector3 syncPos = new Vector3(); // automatically sends this to all clients
     [SyncVar(hook = "SyncRotationValues")]
-    private Quaternion syncRot; // automatically sends this to all clients
+    private Quaternion syncRot = new Quaternion(); // automatically sends this to all clients
 
     [SerializeField]
     Rigidbody myRigidbody;

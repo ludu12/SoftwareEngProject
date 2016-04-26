@@ -21,7 +21,7 @@ public class MapGenerationTests {
         mapGeneration.Ground = ground;
 
         //Act
-        mapGeneration.Start();
+        mapGeneration.Start(new GameObject());
 
         //Assert
         map.Received().InstantiateGameObject(ground, new Vector3(0, 0, 0), Quaternion.identity);
@@ -37,7 +37,7 @@ public class MapGenerationTests {
         SetGameObjectPrefabs(mapGeneration);
 
         //Act
-        mapGeneration.Start();
+        mapGeneration.Start(new GameObject());
 
         //Assert
         map.Received(14).InstantiateGameObject(Arg.Any<GameObject>(), Arg.Any<Vector3>(), Arg.Any<Quaternion>()); // exactly 15 times
@@ -53,7 +53,7 @@ public class MapGenerationTests {
         mapGeneration.SetMapInterface(map);
 
         //Act
-        mapGeneration.Start();
+        mapGeneration.Start(new GameObject());
         Queue<GameObject> queue = (Queue<GameObject>)GetInstanceField(typeof(MapGenerationScript), mapGeneration, "mapQueue");
 
         //Assert
@@ -67,7 +67,7 @@ public class MapGenerationTests {
         MapGenerationScript mapGeneration = new MapGenerationScript();
         var map = GetMapMock();
         mapGeneration.SetMapInterface(map);
-        mapGeneration.Start();
+        mapGeneration.Start(new GameObject());
         map.ClearReceivedCalls();
 
         //Act
@@ -85,7 +85,7 @@ public class MapGenerationTests {
         MapGenerationScript mapGeneration = new MapGenerationScript();
         var map = GetMapMock();
         mapGeneration.SetMapInterface(map);
-        mapGeneration.Start();
+        mapGeneration.Start(new GameObject());
         Queue<GameObject> queue = (Queue<GameObject>)GetInstanceField(typeof(MapGenerationScript), mapGeneration, "mapQueue");
 
         //Act
